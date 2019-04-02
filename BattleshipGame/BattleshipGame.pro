@@ -29,7 +29,14 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    battleshipGame.h \
+    c_cpp_string.h \
+    fleet.h \
+    interface.h \
+    plotter.h \
+    ship.h \
+    square.h
 
 FORMS += \
         mainwindow.ui
