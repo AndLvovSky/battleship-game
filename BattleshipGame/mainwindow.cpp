@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "saving_manager.h"
 #include "game_exception.h"
+#include "field_widget.h"
 
 #include <QPainter>
 #include <QDir>
@@ -21,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     } catch(GameException ex) {
         QMessageLogger().debug(ex.what());
     }
+
+    yourFW = new FieldWidget();
+    opponentFW = new FieldWidget();
+    ui->yourFleetLayout->addWidget(yourFW);
+    ui->opponentFleetLayout->addWidget(opponentFW);
 }
 
 MainWindow::~MainWindow()
@@ -93,4 +99,18 @@ void MainWindow::closeEvent(QCloseEvent* e) {
          QMessageLogger().debug(ex.what());
     }
     QWidget::closeEvent(e);
+}
+
+void MainWindow::on_startGameButton_clicked()
+{
+    auto stw = ui->stackedWidget;
+    stw->setCurrentIndex(1);
+    this->setFixedSize(600, 500);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    auto stw = ui->stackedWidget;
+    stw->setCurrentIndex(0);
+    this->setFixedSize(600, 400);
 }

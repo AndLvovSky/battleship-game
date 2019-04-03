@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "saving_manager.h"
+#include "field_widget.h"
 #include <QMainWindow>
 #include <memory>
 
@@ -27,8 +28,14 @@ private slots:
 
     void closeEvent(QCloseEvent*) override;
 
+    void on_startGameButton_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    battleshipGame::FieldWidget* yourFW;
+    battleshipGame::FieldWidget* opponentFW;
     unique_ptr<battleshipGame::SavingManager> savingManager;
 };
 

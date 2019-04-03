@@ -28,12 +28,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     settings.cpp \
-    saving_manager.cpp
+    saving_manager.cpp \
+    field_widget.cpp
 
 HEADERS += \
         mainwindow.h \
     battleshipGame.h \
-    c_cpp_string.h \
     fleet.h \
     interface.h \
     plotter.h \
@@ -41,7 +41,8 @@ HEADERS += \
     square.h \
     settings.h \
     saving_manager.h \
-    game_exception.h
+    game_exception.h \
+    field_widget.h
 
 FORMS += \
         mainwindow.ui
