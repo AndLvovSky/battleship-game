@@ -1,10 +1,22 @@
-#include <iostream>
-#include "battleshipGame.h"
-#include "c_cpp_string.h"
+#include "battleship_game.h"
+#include "field_painter.h"
 //#include <graphics.h>
 
-using namespace std;
-using namespace battleshipGameNamespace;
+
+using namespace battleshipGame;
+
+FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw) :
+    WidgetPainter(fw) {}
+
+void FieldWidget::FieldPainter::paint() {
+    const auto SIDE = FieldWidget::SIDE;
+    const auto SQ = SIDE / 10;
+    painter->setPen(QColor(100, 100, 100));
+    for (int i = 1; i < 10; i++) {
+        painter->drawLine(SQ * i, 0, SQ * i, SIDE);
+        painter->drawLine(0, SQ * i, SIDE, SQ * i);
+    }
+}
 
 /*
 void Plotter :: 

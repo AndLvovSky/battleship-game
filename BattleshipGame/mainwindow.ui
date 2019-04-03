@@ -419,7 +419,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="finishGameButton">
             <property name="font">
              <font>
               <family>Arial</family>

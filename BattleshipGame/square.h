@@ -1,41 +1,32 @@
-#include <iostream>
-#include "battleshipGame.h"
+#ifndef SQUARE_H
+#define SQUARE_H
 
-using namespace std;
-using namespace battleshipGameNamespace;
+namespace battleshipGame {
 
-Square :: Square() {
-	x = y = 0;
-}
-	
-Square :: Square(int x, int y) {
-	this->x = x;
-	this->y = y;
-}
+class Square {
 
-Square 
-Square :: makeSquare(int x, int y) {
-	Square square(x, y);
-	return square;
-}
+    private:
 
-int Square :: getX() {
-	return this->x;
-}
+    int x, y;
 
-void Square :: setX(int x) {
-	this->x = x;
-}
+    public:
 
-int Square :: getY() {
-	return this->y;
+    enum State {
+        NOT_ATTACKED,
+        ATTACKED,
+        ATTACKED_WITH_SUCCESS
+    };
+
+    Square();
+    Square(int, int);
+    static Square makeSquare(int, int);
+    int getX();
+    void setX(int);
+    int getY();
+    void setY(int);
+    bool operator == (Square);
+};
+
 }
 
-void Square :: setY(int y) {
-	this->y = y;
-}
-
-bool Square :: operator == (Square square) {
-	return this->x == square.getX() &&
-		   this->y == square.getY();
-}
+#endif // SQUARE_H

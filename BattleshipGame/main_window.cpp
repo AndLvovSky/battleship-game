@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main_window.h"
 #include "ui_mainwindow.h"
 #include "saving_manager.h"
 #include "game_exception.h"
@@ -103,13 +103,16 @@ void MainWindow::closeEvent(QCloseEvent* e) {
 
 void MainWindow::on_startGameButton_clicked()
 {
+    auto& game = BattleshipGame::get();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(1);
     this->setFixedSize(600, 500);
+    game.start();
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_finishGameButton_clicked()
 {
+    BattleshipGame::get().quit();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(0);
     this->setFixedSize(600, 400);

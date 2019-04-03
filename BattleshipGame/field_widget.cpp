@@ -1,4 +1,5 @@
 #include "field_widget.h"
+#include "field_painter.h"
 #include <QPainter>
 
 using namespace battleshipGame;
@@ -14,12 +15,6 @@ QSize FieldWidget::sizeHint() const {
 }
 
 void FieldWidget::paintEvent(QPaintEvent* ev) {
-    QPainter painter(this);
-    const auto SQ = SIDE / 10;
-    painter.setPen(QColor(100, 100, 100));
-    for (int i = 1; i < 10; i++) {
-        painter.drawLine(SQ * i, 0, SQ * i, SIDE);
-        painter.drawLine(0, SQ * i, SIDE, SQ * i);
-    }
+    FieldPainter(this).paint();
     QWidget::paintEvent(ev);
 }

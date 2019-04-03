@@ -3,8 +3,11 @@
 
 #include "saving_manager.h"
 #include "field_widget.h"
+#include "battleship_game.h"
 #include <QMainWindow>
 #include <memory>
+
+using namespace battleshipGame;
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +19,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
     void resizeEvent(QResizeEvent* e) override;
 
 private slots:
@@ -30,13 +33,14 @@ private slots:
 
     void on_startGameButton_clicked();
 
-    void on_pushButton_clicked();
+    void on_finishGameButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-    battleshipGame::FieldWidget* yourFW;
-    battleshipGame::FieldWidget* opponentFW;
-    unique_ptr<battleshipGame::SavingManager> savingManager;
+    FieldWidget* yourFW;
+    FieldWidget* opponentFW;
+    unique_ptr<SavingManager> savingManager;
+    BattleshipGame* game;
 };
 
 #endif // MAINWINDOW_H

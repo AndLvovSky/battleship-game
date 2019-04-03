@@ -26,23 +26,30 @@ CONFIG += c++17
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     settings.cpp \
     saving_manager.cpp \
-    field_widget.cpp
+    field_widget.cpp \
+    square.cpp \
+    ship.cpp \
+    fleet.cpp \
+    widget_painter.cpp \
+    field_painter.cpp \
+    battleship_game.cpp \
+    main_window.cpp
 
 HEADERS += \
-        mainwindow.h \
-    battleshipGame.h \
-    fleet.h \
-    interface.h \
-    plotter.h \
-    ship.h \
-    square.h \
     settings.h \
     saving_manager.h \
     game_exception.h \
-    field_widget.h
+    field_widget.h \
+    square.h \
+    ship.h \
+    fleet.h \
+    shot.h \
+    widget_painter.h \
+    field_painter.h \
+    battleship_game.h \
+    main_window.h
 
 FORMS += \
         mainwindow.ui

@@ -2,11 +2,28 @@
 #include <ctime>
 #include <Windows.h>
 #include <conio.h>
-#include "battleshipGame.h"
+#include "battleship_game.h"
 
 using namespace std;
-using namespace battleshipGameNamespace;
+using namespace battleshipGame;
 
+void BattleshipGame::start() {
+    yourFleet = new Fleet();
+    opponentFleet = new Fleet();
+    // continue init
+}
+
+BattleshipGame& BattleshipGame::get() {
+    static BattleshipGame game;
+    return game;
+}
+
+void BattleshipGame::quit() {
+    delete yourFleet;
+    delete opponentFleet;
+}
+
+/*
 void Interface :: shiftCurrentSquare(char key) {
 	switch (key) {
 		case SHIFT_UP : {
@@ -262,3 +279,4 @@ void Interface :: run() {
 		resume();
 	}	
 }
+*/

@@ -2,13 +2,14 @@
 #define SAVING_MANAGER_H
 
 #include <QString>
+#include <QFile>
 #include "settings.h"
 
 namespace battleshipGame {
 
 class SavingManager {
 
-    const QString& fileName;
+    QFile sfile;
 
 public:
     SavingManager() = delete;
