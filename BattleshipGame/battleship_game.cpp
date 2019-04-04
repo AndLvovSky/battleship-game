@@ -1,8 +1,5 @@
-#include <iostream>
-#include <ctime>
-#include <Windows.h>
-#include <conio.h>
 #include "battleship_game.h"
+#include "settings.h"
 
 using namespace std;
 using namespace battleshipGame;
@@ -10,7 +7,12 @@ using namespace battleshipGame;
 void BattleshipGame::start() {
     yourFleet = new Fleet();
     opponentFleet = new Fleet();
-    // continue init
+    squareSelected = false;
+    shipSize = 1;
+    shipHorizontal = true;
+    mode = Mode::PLACING;
+    shipsLast = Settings::getInstance().getShipsMap();
+    //randomPlacement(*opponentFleet);
 }
 
 BattleshipGame& BattleshipGame::get() {
@@ -21,6 +23,14 @@ BattleshipGame& BattleshipGame::get() {
 void BattleshipGame::quit() {
     delete yourFleet;
     delete opponentFleet;
+}
+
+Fleet& BattleshipGame::getFleet(bool yours) {
+    if (yours) {
+        return *yourFleet;
+    } else {
+        return *opponentFleet;
+    }
 }
 
 /*

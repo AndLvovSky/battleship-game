@@ -160,24 +160,10 @@ int Fleet :: getHP() {
 	return sumHPs;
 }
 
-Square::State Fleet :: setSquareState(int x, int y, Square::State squareState) {
-	return this->squaresState[x][y] = squareState;
-}
-
 Square::State Fleet :: getSquareState(int x, int y) {
 	return this->squaresState[x][y];
 }
 
 vector <Ship> Fleet :: getShips() {
 	return this->ships;
-}
-
-void Fleet :: clear() {
-	ships.clear();
-	
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            squaresState[i][j] = Square::NOT_ATTACKED;
-		}
-	}
 }

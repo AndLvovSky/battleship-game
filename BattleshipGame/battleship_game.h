@@ -2,6 +2,7 @@
 #define BATTLESHIP_GAME
 
 #include "fleet.h"
+#include <map>
 
 using namespace std;
 
@@ -9,6 +10,14 @@ namespace battleshipGame {
 
 class BattleshipGame {
 
+    Fleet* yourFleet;
+    Fleet* opponentFleet;
+
+    void randomPlacement(Fleet&);
+    bool isSquareGood(Square);
+    Square findBestSquare();
+
+public:
     enum class Mode {
         PLACING,
         BATTLE,
@@ -20,33 +29,21 @@ class BattleshipGame {
     };
 
     Mode mode;
-    Fleet* yourFleet;
-    Fleet* opponentFleet;
-    Square currentSquare;
-    bool isShipSelected;
-    int selectedShipSize;
-    bool selectedShipOrientation;
-    bool isStepYours;
-    int battleMode;
-    int resultOfStep;
-    bool isYouWinner;
+    Square square;
+    bool squareSelected;
+    int shipSize;
+    bool shipHorizontal;
+    bool stepYours;
+    bool youWinner;
+    map <int, int> shipsLast;
 
-public:
     void start();
     void quit();
+    void battle();
     static BattleshipGame& get();
     Fleet& getFleet(bool yours);
-    Square getFleetSquareFrom(int x, int y, int startY, int startX);
-    Square getYourFleetSquare(int x, int y);
-    Square getOpponentFleetSquare(int x, int y);
-    void shiftCurrentSquare(char key);
-    void placeShips();
-    bool isSquareGood(Square);
-    Square findBestSquare();
-    void randomPlacement(Fleet&);
-    void battle();
-    void refresh();
-    void resume();
+    void makeOpponentStep();
+
 };
 
 }

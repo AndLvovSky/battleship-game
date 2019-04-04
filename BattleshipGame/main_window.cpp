@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //this->setFixedSize(600, 400);
 
     savingManager = make_unique<SavingManager>(
         QDir::currentPath() + "/settings.txt");
@@ -23,9 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
         QMessageLogger().debug(ex.what());
     }
 
-    yourFW = new FieldWidget();
-    opponentFW = new FieldWidget();
+    yourFW = new FieldWidget(true);
     ui->yourFleetLayout->addWidget(yourFW);
+    QObject::connect(yourFW, SIGNAL(shipsMapChanged()),
+                     this, SLOT(on_shipsMap_changed()));
+    opponentFW = new FieldWidget(false);
     ui->opponentFleetLayout->addWidget(opponentFW);
 }
 
@@ -106,8 +109,11 @@ void MainWindow::on_startGameButton_clicked()
     auto& game = BattleshipGame::get();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(1);
-    this->setFixedSize(600, 500);
+    auto atw = ui->actionStackedWidget;
+    atw->setCurrentIndex(0);
+    //this->setFixedSize(600, 500);
     game.start();
+    on_shipsMap_changed();
 }
 
 void MainWindow::on_finishGameButton_clicked()
@@ -115,5 +121,58 @@ void MainWindow::on_finishGameButton_clicked()
     BattleshipGame::get().quit();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(0);
-    this->setFixedSize(600, 400);
+    //this->setFixedSize(600, 400);
+}
+
+void MainWindow::on_shipsMap_changed() {
+    QMessageLogger().debug("ships map changed");
+    auto d1 = ui->d1RadioButton;
+    auto d2 = ui->d2RadioButton;
+    auto d3 = ui->d3RadioButton;
+    auto d4 = ui->d4RadioButton;
+    auto game = BattleshipGame::get();
+    d1->setText("single");
+    d2->setText("two");
+    d3->setText("three");
+    d4->setText("four");
+    if (game.shipsLast[1] == 0) d1->setEnabled(false);
+    else d1->setEnabled(true);
+    if (game.shipsLast[2] == 0) d2->setEnabled(false);
+    else d2->setEnabled(true);
+    if (game.shipsLast[3] == 0) d3->setEnabled(false);
+    else d3->setEnabled(true);
+    if (game.shipsLast[4] == 0) d4->setEnabled(false);
+    else d4->setEnabled(true);
+    switch (game.shipSize) {
+        case 1: d1->setChecked(true); break;
+        case 2: d2->setChecked(true); break;
+        case 3: d3->setChecked(true); break;
+        case 4: d4->setChecked(true); break;
+    }
+    if (!(d1->isEnabled() || d2->isEnabled() || d3->isEnabled() || d4->isEnabled())) {
+        game.mode = BattleshipGame::Mode::BATTLE;
+        auto atw = ui->actionStackedWidget;
+        atw->setCurrentIndex(1);
+        QMessageLogger().debug("battle start");
+    }
+}
+
+void MainWindow::on_d1RadioButton_clicked()
+{
+    BattleshipGame::get().shipSize = 1;
+}
+
+void MainWindow::on_d2RadioButton_clicked()
+{
+    BattleshipGame::get().shipSize = 2;
+}
+
+void MainWindow::on_d3RadioButton_clicked()
+{
+    BattleshipGame::get().shipSize = 3;
+}
+
+void MainWindow::on_d4RadioButton_clicked()
+{
+    BattleshipGame::get().shipSize = 4;
 }

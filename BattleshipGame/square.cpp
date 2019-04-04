@@ -39,3 +39,13 @@ bool Square :: operator == (Square square) {
 	return this->x == square.getX() &&
 		   this->y == square.getY();
 }
+
+bool Square :: operator != (Square square) {
+    return !(*this == square);
+}
+
+Square& Square::operator=(const Square& other) {
+    this->x = other.x;
+    this->y = other.y;
+    return *this;
+}

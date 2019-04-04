@@ -12,7 +12,7 @@ namespace battleshipGame {
 
 class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
 
-    BattleshipGame* game;
+    const int SQ = SIDE / 10;
 
     void drawFrame(int startX, int startY, int finalX, int finalY,
                    int color, int width);
@@ -24,9 +24,10 @@ class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
     void drawFleetState(bool isYour, int fieldX, int fieldY);
     void drawYourFleetState();
     void drawOpponentFleetState();
-    void highlightSquare(Square square, int fieldX, int fieldY);
+    void highlightSquare(Square square);
     void drawPlacing();
     void drawBattle();
+    QPoint point(Square);
 
 public:
     FieldPainter(FieldWidget* fw);

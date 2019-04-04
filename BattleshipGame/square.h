@@ -25,6 +25,8 @@ class Square {
     int getY();
     void setY(int);
     bool operator == (Square);
+    bool operator != (Square);
+    Square& operator=(const Square&);
 };
 
 }

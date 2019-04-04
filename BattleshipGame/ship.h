@@ -17,7 +17,7 @@ class Ship {
 
     public:
 
-    Ship(Square startSquare, int shipSize, bool orientation);
+    Ship(Square startSquare, int shipSize, bool horizontal);
     int getHP();
     void setHP(int);
     vector <Square> getSquares();

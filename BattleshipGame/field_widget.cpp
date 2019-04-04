@@ -1,20 +1,92 @@
 #include "field_widget.h"
 #include "field_painter.h"
+#include "main_window.h"
 #include <QPainter>
+#include <QMouseEvent>
+#include <QStyleOption>
 
 using namespace battleshipGame;
 
 const int FieldWidget::SIDE = 200;
 
-FieldWidget::FieldWidget() : QWidget() {
+FieldWidget::FieldWidget(bool yours) : QWidget(), yours(yours) {
     setStyleSheet("border: 2px solid black; background-color: white");
+    this->setMouseTracking(true);
 }
+
+FieldWidget::~FieldWidget() {}
 
 QSize FieldWidget::sizeHint() const {
     return QSize(SIDE, SIDE);
 }
 
 void FieldWidget::paintEvent(QPaintEvent* ev) {
+    //<required>
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    //</required>
     FieldPainter(this).paint();
     QWidget::paintEvent(ev);
+}
+
+void FieldWidget::mouseMoveEvent(QMouseEvent* ev) {
+    auto& game = BattleshipGame::get();
+    if (game.mode == BattleshipGame::Mode::PLACING && !yours ||
+        game.mode == BattleshipGame::Mode::BATTLE && yours) {
+        return;
+    }
+    if (ev->type() == QEvent::MouseMove) {
+       Square square = getSquare(ev->x(), ev->y());
+       if (game.square != square) {
+           game.square = square;
+           update();
+       }
+    }
+}
+
+void FieldWidget::mousePressEvent(QMouseEvent *ev) {
+    auto& game = BattleshipGame::get();
+    if (game.mode == BattleshipGame::Mode::PLACING && !yours ||
+        game.mode == BattleshipGame::Mode::BATTLE && yours) {
+        return;
+    }
+    if (ev->buttons() & Qt::RightButton) {
+        QMessageLogger().debug("right button clicked");
+        if (game.mode == BattleshipGame::Mode::PLACING) {
+            game.shipHorizontal = !game.shipHorizontal;
+        }
+    } else if (ev->buttons() & Qt::LeftButton) {
+        QMessageLogger().debug("left button clicked");
+        if (game.mode == BattleshipGame::Mode::PLACING) {
+            auto& yourFleet = game.getFleet(true);
+            if (game.shipsLast[game.shipSize] &&
+                yourFleet.checkPositionForShip(game.square, game.shipSize, game.shipHorizontal)) {
+                Ship ship(game.square, game.shipSize, game.shipHorizontal);
+                yourFleet.addShip(ship);
+                game.shipsLast[game.shipSize]--;
+                emit shipsMapChanged();
+            }
+        } else if (game.mode == BattleshipGame::Mode::BATTLE) {
+            //...
+        }
+    }
+}
+
+void FieldWidget::enterEvent(QEvent* ev) {
+    QMessageLogger().debug("enter");
+    BattleshipGame::get().squareSelected = true;
+    QWidget::enterEvent(ev);
+}
+
+void FieldWidget::leaveEvent(QEvent* ev) {
+    QMessageLogger().debug("leave");
+    BattleshipGame::get().squareSelected = false;
+    update();
+    QWidget::leaveEvent(ev);
+}
+
+Square FieldWidget::getSquare(int wx, int wy) {
+    return {wx * 10 / SIDE , wy * 10 / SIDE};
 }

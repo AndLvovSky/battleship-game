@@ -2,7 +2,6 @@
 #include "field_painter.h"
 //#include <graphics.h>
 
-
 using namespace battleshipGame;
 
 FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw) :
@@ -16,6 +15,23 @@ void FieldWidget::FieldPainter::paint() {
         painter->drawLine(SQ * i, 0, SQ * i, SIDE);
         painter->drawLine(0, SQ * i, SIDE, SQ * i);
     }
+    auto game = BattleshipGame::get();
+    if (game.squareSelected) {
+        highlightSquare(game.square);
+    }
+}
+
+QPoint FieldWidget::FieldPainter::point(Square square) {
+    return QPoint(square.getX() * SQ, square.getY() * SQ);
+}
+
+void FieldWidget::FieldPainter::highlightSquare(Square square) {
+    QPoint lt = point(square);
+    painter->setPen(QPen(QColor(255, 255, 0), 4));
+    painter->drawLine(lt.x(), lt.y(), lt.x() + SQ, lt.y());
+    painter->drawLine(lt.x(), lt.y(), lt.x(), lt.y() + SQ);
+    painter->drawLine(lt.x() + SQ, lt.y(), lt.x() + SQ, lt.y() + SQ);
+    painter->drawLine(lt.x(), lt.y() + SQ, lt.x() + SQ, lt.y() + SQ);
 }
 
 /*
