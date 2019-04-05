@@ -18,8 +18,12 @@ class Ship {
     public:
 
     Ship(Square startSquare, int shipSize, bool horizontal);
+    Square getStartSquare();
+    int getSize();
+    bool isHorizontal();
     int getHP();
     void setHP(int);
+    bool isSunk();
     vector <Square> getSquares();
 };
 

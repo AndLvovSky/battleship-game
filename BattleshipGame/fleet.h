@@ -22,7 +22,7 @@ class Fleet {
     public:
 
     Fleet();
-    bool checkPositionForShip(Square startSquare, int shipSize, bool orientation);
+    bool checkPositionForShip(Ship);
     void addShip(Ship);
     Shot fire(Square);
     bool hasAttacked(Square);

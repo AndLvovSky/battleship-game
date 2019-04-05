@@ -13,21 +13,24 @@ namespace battleshipGame {
 class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
 
     const int SQ = SIDE / 10;
+    const bool yours;
+    const QColor FIELD_COLOR = QColor(80, 80, 80);
+    const QColor CORRECT_COLOR = QColor(255, 255, 0);
+    const QColor INCORRECT_COLOR = QColor(255, 0, 0, 100);
+    const QColor SHIP_COLOR = QColor(0, 0, 255);
+    const int NARROW_STROKE = 2;
+    const int THICK_STROKE = 4;
 
-    void drawFrame(int startX, int startY, int finalX, int finalY,
-                   int color, int width);
-    void drawField(int x, int y, string name);
-    void drawFleetsFields();
-    void drawShip(Ship ship, int fieldX, int fieldY);
-    void drawPoint(int fieldX, int fieldY);
-    void drawCross(int fieldX, int fieldY);
-    void drawFleetState(bool isYour, int fieldX, int fieldY);
-    void drawYourFleetState();
-    void drawOpponentFleetState();
-    void highlightSquare(Square square);
+    void drawField();
+    void drawFleet();
+    void drawFleetState();
+    void drawShip(Ship ship, QColor color);
+    void drawSquare(Square square, QColor color);
+    void drawCross(Square);
+    void drawSmallPoint(Square);
+    QPoint point(Square);
     void drawPlacing();
     void drawBattle();
-    QPoint point(Square);
 
 public:
     FieldPainter(FieldWidget* fw);

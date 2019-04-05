@@ -56,14 +56,15 @@ void FieldWidget::mousePressEvent(QMouseEvent *ev) {
         QMessageLogger().debug("right button clicked");
         if (game.mode == BattleshipGame::Mode::PLACING) {
             game.shipHorizontal = !game.shipHorizontal;
+            update();
         }
     } else if (ev->buttons() & Qt::LeftButton) {
         QMessageLogger().debug("left button clicked");
         if (game.mode == BattleshipGame::Mode::PLACING) {
             auto& yourFleet = game.getFleet(true);
+            Ship ship(game.square, game.shipSize, game.shipHorizontal);
             if (game.shipsLast[game.shipSize] &&
-                yourFleet.checkPositionForShip(game.square, game.shipSize, game.shipHorizontal)) {
-                Ship ship(game.square, game.shipSize, game.shipHorizontal);
+                yourFleet.checkPositionForShip(ship)) {
                 yourFleet.addShip(ship);
                 game.shipsLast[game.shipSize]--;
                 emit shipsMapChanged();

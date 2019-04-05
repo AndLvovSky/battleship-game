@@ -48,8 +48,11 @@ bool Fleet :: checkPositionForSquare(Square square) {
 	return true;
 }
 
-bool Fleet :: checkPositionForShip(Square startSquare, int shipSize, bool orientation) {
-	if (orientation) {
+bool Fleet :: checkPositionForShip(Ship ship) {
+    auto startSquare = ship.getStartSquare();
+    auto shipSize = ship.getSize();
+    auto horizontal = ship.isHorizontal();
+    if (horizontal) {
 		for (int x = startSquare.getX(); x < startSquare.getX() + shipSize; x++) {
 			Square square(x, startSquare.getY());
 			if (!checkPositionForSquare(square)) {

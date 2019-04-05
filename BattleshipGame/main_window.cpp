@@ -130,11 +130,15 @@ void MainWindow::on_shipsMap_changed() {
     auto d2 = ui->d2RadioButton;
     auto d3 = ui->d3RadioButton;
     auto d4 = ui->d4RadioButton;
-    auto game = BattleshipGame::get();
-    d1->setText("single");
-    d2->setText("two");
-    d3->setText("three");
-    d4->setText("four");
+    auto& game = BattleshipGame::get();
+    d1->setText(QString("single (") +
+        QString::fromStdString(to_string(game.shipsLast[1])) + ")");
+    d2->setText(QString("two (") +
+        QString::fromStdString(to_string(game.shipsLast[2])) + ")");
+    d3->setText(QString("three (") +
+        QString::fromStdString(to_string(game.shipsLast[3])) + ")");
+    d4->setText(QString("four (") +
+        QString::fromStdString(to_string(game.shipsLast[4])) + ")");
     if (game.shipsLast[1] == 0) d1->setEnabled(false);
     else d1->setEnabled(true);
     if (game.shipsLast[2] == 0) d2->setEnabled(false);
@@ -143,11 +147,18 @@ void MainWindow::on_shipsMap_changed() {
     else d3->setEnabled(true);
     if (game.shipsLast[4] == 0) d4->setEnabled(false);
     else d4->setEnabled(true);
-    switch (game.shipSize) {
-        case 1: d1->setChecked(true); break;
-        case 2: d2->setChecked(true); break;
-        case 3: d3->setChecked(true); break;
-        case 4: d4->setChecked(true); break;
+    if (game.shipsLast[game.shipSize]) {
+        switch (game.shipSize) {
+            case 1: d1->setChecked(true); break;
+            case 2: d2->setChecked(true); break;
+            case 3: d3->setChecked(true); break;
+            case 4: d4->setChecked(true); break;
+        }
+    } else {
+        if (game.shipsLast[1] != 0) { d1->click(); yourFW->update(); }
+        else if (game.shipsLast[2] != 0) { d2->click(); yourFW->update(); }
+        else if (game.shipsLast[3] != 0) { d3->click(); yourFW->update(); }
+        else if (game.shipsLast[4] != 0) { d4->click(); yourFW->update(); }
     }
     if (!(d1->isEnabled() || d2->isEnabled() || d3->isEnabled() || d4->isEnabled())) {
         game.mode = BattleshipGame::Mode::BATTLE;
