@@ -49,7 +49,7 @@ void FieldWidget::mouseMoveEvent(QMouseEvent* ev) {
 void FieldWidget::mousePressEvent(QMouseEvent *ev) {
     auto& game = BattleshipGame::get();
     if (game.mode == BattleshipGame::Mode::PLACING && !yours ||
-        game.mode == BattleshipGame::Mode::BATTLE && yours) {
+        game.mode == BattleshipGame::Mode::BATTLE && yours && game.stepYours) {
         return;
     }
     if (ev->buttons() & Qt::RightButton) {
@@ -70,7 +70,13 @@ void FieldWidget::mousePressEvent(QMouseEvent *ev) {
                 emit shipsMapChanged();
             }
         } else if (game.mode == BattleshipGame::Mode::BATTLE) {
-            //...
+            auto& opponentFleet = game.getFleet(false);
+            if (!opponentFleet.hasAttacked(game.square)) {
+                Shot result = opponentFleet.fire(game.square);
+                QMessageLogger().debug("you fired");
+                update();
+                emit fired(result);
+            }
         }
     }
 }

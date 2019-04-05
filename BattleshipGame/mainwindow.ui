@@ -259,7 +259,7 @@
         <item>
          <widget class="QStackedWidget" name="actionStackedWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="placePage">
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -445,6 +445,33 @@
                </size>
               </property>
              </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="winnerPage">
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="winnerLabel">
+              <property name="font">
+               <font>
+                <family>Cambria</family>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+                <italic>true</italic>
+                <bold>true</bold>
+                <underline>true</underline>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: white; color: blue; border: 2px dotted blue; padding: 10px</string>
+              </property>
+              <property name="text">
+               <string>Who is winner</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

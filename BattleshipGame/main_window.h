@@ -23,6 +23,12 @@ public:
     void resizeEvent(QResizeEvent* e) override;
     void updateRadioGroup();
 
+signals:
+    void fired(Shot);
+
+public slots:
+    void on_fired(Shot);
+
 private slots:
     void on_settingsButton_clicked();
 
@@ -52,7 +58,6 @@ private:
     FieldWidget* yourFW;
     FieldWidget* opponentFW;
     unique_ptr<SavingManager> savingManager;
-    BattleshipGame* game;
 };
 
 #endif // MAINWINDOW_H

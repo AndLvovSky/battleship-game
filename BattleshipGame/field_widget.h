@@ -33,6 +33,7 @@ public:
 
 signals:
     void shipsMapChanged();
+    void fired(Shot);
 };
 
 }

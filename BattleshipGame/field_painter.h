@@ -18,6 +18,7 @@ class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
     const QColor CORRECT_COLOR = QColor(255, 255, 0);
     const QColor INCORRECT_COLOR = QColor(255, 0, 0, 100);
     const QColor SHIP_COLOR = QColor(0, 0, 255);
+    const QColor ATTACK_COLOR = QColor(255, 0, 0);
     const int NARROW_STROKE = 2;
     const int THICK_STROKE = 4;
 

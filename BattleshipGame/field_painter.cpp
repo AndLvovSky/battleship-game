@@ -8,6 +8,7 @@ FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw) :
     WidgetPainter(fw), yours(fw->yours) {}
 
 void FieldWidget::FieldPainter::paint() {
+    if (yours) QMessageLogger().debug("your fleet updated");
     drawField();
     auto game = BattleshipGame::get();
     if (game.mode == BattleshipGame::Mode::PLACING) {
@@ -26,7 +27,7 @@ void FieldWidget::FieldPainter::drawPlacing() {
     if (!game.squareSelected) {
         return;
     }
-    auto& yourFleet = game.getFleet(yours);
+    auto& yourFleet = game.getFleet(true);
     Ship ship(game.square, game.shipSize, game.shipHorizontal);
     if (game.shipsLast[game.shipSize] &&
         yourFleet.checkPositionForShip(ship)) {
@@ -37,7 +38,19 @@ void FieldWidget::FieldPainter::drawPlacing() {
 }
 
 void FieldWidget::FieldPainter::drawBattle() {
-    //...
+    drawFleet();
+    drawFleetState();
+    auto& game = BattleshipGame::get();
+    if (game.mode == BattleshipGame::Mode::RESUME || !game.squareSelected ||
+        yours) {
+        return;
+    }
+    auto& opponentFleet = game.getFleet(false);
+    if (opponentFleet.hasAttacked(game.square)) {
+        drawSquare(game.square, INCORRECT_COLOR);
+    } else {
+        drawSquare(game.square, CORRECT_COLOR);
+    }
 }
 
 void FieldWidget::FieldPainter::drawFleet() {
@@ -50,10 +63,24 @@ void FieldWidget::FieldPainter::drawFleet() {
     }
 }
 
+void FieldWidget::FieldPainter::drawFleetState() {
+    auto& fleet = BattleshipGame::get().getFleet(yours);
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            switch (fleet.getSquareState(i, j)) {
+                case Square::ATTACKED: drawSmallPoint(Square(i, j)); break;
+                case Square::ATTACKED_WITH_SUCCESS: drawCross(Square(i, j)); break;
+                case Square::NOT_ATTACKED:  break;
+            }
+        }
+    }
+}
+
 void FieldWidget::FieldPainter::drawShip(Ship ship, QColor color) {
     auto stp = point(ship.getStartSquare());
     auto ssize = ship.getSize();
     painter->setPen(QPen(color, THICK_STROKE));
+    painter->setBrush(Qt::NoBrush);
     if (ship.isHorizontal()) {
         painter->drawRect(stp.x(), stp.y(), SQ * ssize, SQ);
     } else {
@@ -63,7 +90,6 @@ void FieldWidget::FieldPainter::drawShip(Ship ship, QColor color) {
 
 void FieldWidget::FieldPainter::drawField() {
     const auto SIDE = FieldWidget::SIDE;
-    const auto SQ = SIDE / 10;
     painter->setPen(FIELD_COLOR);
     for (int i = 1; i < 10; i++) {
         painter->drawLine(SQ * i, 0, SQ * i, SIDE);
@@ -73,6 +99,7 @@ void FieldWidget::FieldPainter::drawField() {
 
 void FieldWidget::FieldPainter::drawSquare(Square square, QColor color) {
     painter->setPen(QPen(color, THICK_STROKE));
+    painter->setBrush(Qt::NoBrush);
     QPoint lt = point(square);
     painter->drawRect(lt.x(), lt.y(), SQ, SQ);
 }
@@ -81,53 +108,16 @@ QPoint FieldWidget::FieldPainter::point(Square square) {
     return QPoint(square.getX() * SQ, square.getY() * SQ);
 }
 
-/*
-
-void Plotter :: 
-drawPoint(int fieldX, int fieldY) {
-	setcolor(ATACK_COLOR);
-	setfillstyle(SOLID_FILL, ATACK_COLOR);
-	
-	fillellipse(fieldX * SQUARE_SIDE + SQUARE_SIDE / 2,
-				fieldY * SQUARE_SIDE + SQUARE_SIDE / 2,
-				POINT_RADIUS, POINT_RADIUS);
+void FieldWidget::FieldPainter::drawCross(Square square) {
+    auto p = point(square);
+    painter->setPen(QPen(ATTACK_COLOR, THICK_STROKE));
+    painter->drawLine(p.x(), p.y(), p.x() + SQ, p.y() + SQ);
+    painter->drawLine(p.x(), p.y() + SQ, p.x() + SQ, p.y());
 }
 
-void Plotter :: 
-drawCross(int fieldX, int fieldY) {
-	setcolor(ATACK_COLOR);
-	setlinestyle(SOLID_LINE, 0, THICK_WIDTH);
-	
-	line(fieldX * SQUARE_SIDE, fieldY * SQUARE_SIDE,
-	     (fieldX + 1) * SQUARE_SIDE, (fieldY + 1) * SQUARE_SIDE);
-	line(fieldX * SQUARE_SIDE, (fieldY + 1) * SQUARE_SIDE,
-	     (fieldX + 1) * SQUARE_SIDE, fieldY * SQUARE_SIDE);
+void FieldWidget::FieldPainter::drawSmallPoint(Square square) {
+    auto p = point(square);
+    painter->setPen(ATTACK_COLOR);
+    painter->setBrush(ATTACK_COLOR);
+    painter->drawEllipse(QPoint(p.x() + SQ / 2, p.y() + SQ / 2), 2, 2);
 }
-
-void Plotter :: 
-drawFleetState(bool isYour, int fieldX, int fieldY) {
-	Fleet &fleet = (isYour ? yourFleet : opponentFleet);
-	
-	for (int i = 0; i < fleet.getShips().size(); i++) {
-		if (!fleet.getShips()[i].getHP() || isYour) {
-			drawShip(fleet.getShips()[i], fieldX, fieldY);
-		}
-	}
-	
-	for (int i = 0; i < BATTLE_FIELD_SIZE; i++) {
-		for (int j = 0; j < BATTLE_FIELD_SIZE; j++) {
-			switch (fleet.getSquareState(i, j)) {
-				case ATTACKED : {
-					drawPoint(i + fieldX, j + fieldY);
-					break;
-				}
-				case ATTACKED_WITH_SUCCESS : {
-					drawCross(i + fieldX, j + fieldY);
-					break;
-				}
-				default : break;
-			}
-		}
-	}
-}
-*/

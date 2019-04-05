@@ -17,7 +17,6 @@ class Fleet {
     Square::State squaresState[10][10];
 
     bool checkPositionForSquare(Square);
-    int findShipIndex(Square);
 
     public:
 
@@ -27,8 +26,10 @@ class Fleet {
     Shot fire(Square);
     bool hasAttacked(Square);
     int getHP();
+    bool isDestroyed();
     Square::State getSquareState(int x, int y);
     vector <Ship> getShips();
+    int findShipIndex(Square);
 };
 
 }

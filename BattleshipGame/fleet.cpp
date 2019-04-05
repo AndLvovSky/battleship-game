@@ -163,10 +163,14 @@ int Fleet :: getHP() {
 	return sumHPs;
 }
 
+bool Fleet::isDestroyed() {
+    return !getHP();
+}
+
 Square::State Fleet :: getSquareState(int x, int y) {
 	return this->squaresState[x][y];
 }
 
 vector <Ship> Fleet :: getShips() {
-	return this->ships;
+    return this->ships;
 }

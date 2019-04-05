@@ -15,17 +15,12 @@ class BattleshipGame {
 
     void randomPlacement(Fleet&);
     bool isSquareGood(Square);
-    Square findBestSquare();
 
 public:
     enum class Mode {
         PLACING,
         BATTLE,
-        RESUME,
-        BEFORE_YOUR_STEP,
-        AFTER_YOUR_STEP,
-        BEFORE_OPPONENT_STEP,
-        AFTER_OPPONENT_STEP
+        RESUME
     };
 
     Mode mode;
@@ -34,7 +29,7 @@ public:
     int shipSize;
     bool shipHorizontal;
     bool stepYours;
-    bool youWinner;
+    bool youWon;
     map <int, int> shipsLast;
 
     void start();
@@ -42,7 +37,7 @@ public:
     void battle();
     static BattleshipGame& get();
     Fleet& getFleet(bool yours);
-    void makeOpponentStep();
+    Square opponentStep();
 
 };
 

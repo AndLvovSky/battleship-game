@@ -29,7 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(yourFW, SIGNAL(shipsMapChanged()),
                      this, SLOT(on_shipsMap_changed()));
     opponentFW = new FieldWidget(false);
+    QObject::connect(opponentFW, SIGNAL(fired(Shot)),
+                     this, SLOT(on_fired(Shot)));
     ui->opponentFleetLayout->addWidget(opponentFW);
+    QObject::connect(this, SIGNAL(fired(Shot)),
+                     this, SLOT(on_fired(Shot)));
 }
 
 MainWindow::~MainWindow()
@@ -186,4 +190,38 @@ void MainWindow::on_d3RadioButton_clicked()
 void MainWindow::on_d4RadioButton_clicked()
 {
     BattleshipGame::get().shipSize = 4;
+}
+
+void MainWindow::on_fired(Shot shot) {
+    auto& game = BattleshipGame::get();
+    bool youWon = game.getFleet(false).isDestroyed();
+    bool opponentWon = game.getFleet(true).isDestroyed();
+    if (youWon || opponentWon) {
+        game.mode = BattleshipGame::Mode::RESUME;
+        game.youWon = youWon;
+        auto atw = ui->actionStackedWidget;
+        atw->setCurrentIndex(2);
+        auto winLbl = ui->winnerLabel;
+        if (youWon) {
+            winLbl->setText("Congrats! You are the winner!");
+            winLbl->setStyleSheet(
+            "background: white; color: green; border: 2px dotted green; padding: 10px");
+        } else {
+            winLbl->setText("Sorry! Maybe next time!");
+            winLbl->setStyleSheet(
+            "background: white; color: red; border: 2px dotted red; padding: 10px");
+        }
+        return;
+    }
+    if (shot == Shot::BESIDE) {
+        game.stepYours = !game.stepYours;
+    }
+
+    if (!game.stepYours) {
+        Square square = game.opponentStep();
+        Shot result = game.getFleet(true).fire(square);
+        QMessageLogger().debug("opponent fired");
+        yourFW->update();
+        emit fired(result);
+    }
 }
