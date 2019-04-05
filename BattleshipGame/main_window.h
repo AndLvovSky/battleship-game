@@ -25,6 +25,7 @@ public:
 
 signals:
     void fired(Shot);
+    void gotWinner(bool youWon);
 
 public slots:
     void on_fired(Shot);
@@ -52,12 +53,23 @@ private slots:
 
     void on_d4RadioButton_clicked();
 
+    void on_opponentStep();
+
+    void on_yourTimeLeft();
+
+    void on_gotWinner(bool youWon);
+
+    void on_restartButton_clicked();
+
 private:
 
     Ui::MainWindow *ui;
     FieldWidget* yourFW;
     FieldWidget* opponentFW;
     unique_ptr<SavingManager> savingManager;
+    QTimer* yourTimer;
+    QTimer* opponentTimer;
+    int timeLeft;
 };
 
 #endif // MAINWINDOW_H

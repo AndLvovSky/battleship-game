@@ -6,6 +6,7 @@
 
 #include <QPainter>
 #include <QDir>
+#include <QTimer>
 
 using namespace battleshipGame;
 
@@ -28,12 +29,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->yourFleetLayout->addWidget(yourFW);
     QObject::connect(yourFW, SIGNAL(shipsMapChanged()),
                      this, SLOT(on_shipsMap_changed()));
+    yourTimer = new QTimer();
+    QObject::connect(yourTimer, SIGNAL(timeout()),
+                     this, SLOT(on_yourTimeLeft()));
     opponentFW = new FieldWidget(false);
+    ui->opponentFleetLayout->addWidget(opponentFW);
     QObject::connect(opponentFW, SIGNAL(fired(Shot)),
                      this, SLOT(on_fired(Shot)));
-    ui->opponentFleetLayout->addWidget(opponentFW);
+    opponentTimer = new QTimer();
+    QObject::connect(opponentTimer, SIGNAL(timeout()),
+                     this, SLOT(on_opponentStep()));
     QObject::connect(this, SIGNAL(fired(Shot)),
                      this, SLOT(on_fired(Shot)));
+    QObject::connect(this, SIGNAL(gotWinner(bool)),
+                     this, SLOT(on_gotWinner(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -116,6 +125,8 @@ void MainWindow::on_startGameButton_clicked()
     auto atw = ui->actionStackedWidget;
     atw->setCurrentIndex(0);
     //this->setFixedSize(600, 500);
+    auto tLbl = ui->timerLabel;
+    tLbl->setText(QString(QChar(0x221E)));
     game.start();
     on_shipsMap_changed();
 }
@@ -126,6 +137,8 @@ void MainWindow::on_finishGameButton_clicked()
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(0);
     //this->setFixedSize(600, 400);
+    opponentTimer->stop();
+    yourTimer->stop();
 }
 
 void MainWindow::on_shipsMap_changed() {
@@ -168,6 +181,7 @@ void MainWindow::on_shipsMap_changed() {
         game.mode = BattleshipGame::Mode::BATTLE;
         auto atw = ui->actionStackedWidget;
         atw->setCurrentIndex(1);
+        yourFW->update();
         QMessageLogger().debug("battle start");
     }
 }
@@ -197,31 +211,76 @@ void MainWindow::on_fired(Shot shot) {
     bool youWon = game.getFleet(false).isDestroyed();
     bool opponentWon = game.getFleet(true).isDestroyed();
     if (youWon || opponentWon) {
-        game.mode = BattleshipGame::Mode::RESUME;
-        game.youWon = youWon;
-        auto atw = ui->actionStackedWidget;
-        atw->setCurrentIndex(2);
-        auto winLbl = ui->winnerLabel;
-        if (youWon) {
-            winLbl->setText("Congrats! You are the winner!");
-            winLbl->setStyleSheet(
-            "background: white; color: green; border: 2px dotted green; padding: 10px");
-        } else {
-            winLbl->setText("Sorry! Maybe next time!");
-            winLbl->setStyleSheet(
-            "background: white; color: red; border: 2px dotted red; padding: 10px");
-        }
+        emit gotWinner(youWon);
         return;
     }
+    auto tLbl = ui->timerLabel;
     if (shot == Shot::BESIDE) {
+        if (!game.stepYours) {
+            opponentTimer->stop();
+        } else {
+            yourTimer->stop();
+        }
         game.stepYours = !game.stepYours;
+    } else if (game.stepYours) {
+        timeLeft = Settings::getInstance().getStepDuration();
+        tLbl->setText(QString::number(timeLeft));
     }
-
     if (!game.stepYours) {
-        Square square = game.opponentStep();
-        Shot result = game.getFleet(true).fire(square);
-        QMessageLogger().debug("opponent fired");
-        yourFW->update();
-        emit fired(result);
+        tLbl->setText(QString(QChar(0x221E)));
+        opponentTimer->start(500);
+    } else {
+        opponentFW->update();
+        if (Settings::getInstance().isTimeLimited()) {
+            timeLeft = Settings::getInstance().getStepDuration();
+            tLbl->setText(QString::number(timeLeft));
+            yourTimer->start(1000);
+        }
     }
+}
+
+void MainWindow::on_opponentStep() {
+    auto& game = BattleshipGame::get();
+    Square square = game.opponentStep();
+    Shot result = game.getFleet(true).fire(square);
+    QMessageLogger().debug("opponent fired");
+    yourFW->update();
+    emit fired(result);
+}
+
+void MainWindow::on_yourTimeLeft() {
+    timeLeft--;
+    auto tLbl = ui->timerLabel;
+    tLbl->setText(QString::number(timeLeft));
+    if (timeLeft == 0) {
+        yourTimer->stop();
+        tLbl->setText("0");
+        emit gotWinner(false);
+    }
+}
+
+void MainWindow::on_gotWinner(bool youWon) {
+    opponentTimer->stop();
+    yourTimer->stop();
+    auto& game = BattleshipGame::get();
+    game.mode = BattleshipGame::Mode::RESUME;
+    game.youWon = youWon;
+    auto atw = ui->actionStackedWidget;
+    atw->setCurrentIndex(2);
+    auto winLbl = ui->winnerLabel;
+    if (youWon) {
+        winLbl->setText("Congrats! You are the winner!");
+        winLbl->setStyleSheet(
+        "background: white; color: green; border: 2px dotted green; padding: 10px");
+    } else {
+        winLbl->setText("Sorry! Maybe next time!");
+        winLbl->setStyleSheet(
+        "background: white; color: red; border: 2px dotted red; padding: 10px");
+    }
+}
+
+void MainWindow::on_restartButton_clicked()
+{
+    on_finishGameButton_clicked();
+    on_startGameButton_clicked();
 }

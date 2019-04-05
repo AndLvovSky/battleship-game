@@ -69,7 +69,7 @@ void FieldWidget::mousePressEvent(QMouseEvent *ev) {
                 game.shipsLast[game.shipSize]--;
                 emit shipsMapChanged();
             }
-        } else if (game.mode == BattleshipGame::Mode::BATTLE) {
+        } else if (game.mode == BattleshipGame::Mode::BATTLE && game.stepYours) {
             auto& opponentFleet = game.getFleet(false);
             if (!opponentFleet.hasAttacked(game.square)) {
                 Shot result = opponentFleet.fire(game.square);

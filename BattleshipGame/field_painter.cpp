@@ -42,7 +42,7 @@ void FieldWidget::FieldPainter::drawBattle() {
     drawFleetState();
     auto& game = BattleshipGame::get();
     if (game.mode == BattleshipGame::Mode::RESUME || !game.squareSelected ||
-        yours) {
+        yours || !game.stepYours) {
         return;
     }
     auto& opponentFleet = game.getFleet(false);

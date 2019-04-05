@@ -15,8 +15,8 @@ void BattleshipGame::start() {
     stepYours = true;
     randomPlacement(*opponentFleet);
     /* for battle mode debug */
-    randomPlacement(*yourFleet);
-    for (auto& [decks, number]: shipsLast) number = 0;
+    //randomPlacement(*yourFleet);
+    //for (auto& [decks, number]: shipsLast) number = 0;
 }
 
 BattleshipGame& BattleshipGame::get() {
