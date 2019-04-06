@@ -25,31 +25,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++17
 
 SOURCES += \
-        main.cpp \
-    settings.cpp \
-    saving_manager.cpp \
-    field_widget.cpp \
-    square.cpp \
-    ship.cpp \
-    fleet.cpp \
-    widget_painter.cpp \
-    field_painter.cpp \
-    battleship_game.cpp \
-    main_window.cpp
+        src/main.cpp \
+    src/saving/settings.cpp \
+    src/saving/saving_manager.cpp \
+    src/widgets/field_widget.cpp \
+    src/models/square.cpp \
+    src/models/ship.cpp \
+    src/models/fleet.cpp \
+    src/widgets/widget_painter.cpp \
+    src/widgets/field_painter.cpp \
+    src/models/battleship_game.cpp \
+    src/main_window.cpp
 
 HEADERS += \
-    settings.h \
-    saving_manager.h \
-    game_exception.h \
-    field_widget.h \
-    square.h \
-    ship.h \
-    fleet.h \
-    shot.h \
-    widget_painter.h \
-    field_painter.h \
-    battleship_game.h \
-    main_window.h
+    src/saving/settings.h \
+    src/saving/saving_manager.h \
+    src/exceptions/game_exception.h \
+    src/widgets/field_widget.h \
+    src/models/square.h \
+    src/models/ship.h \
+    src/models/fleet.h \
+    src/models/shot.h \
+    src/widgets/widget_painter.h \
+    src/widgets/field_painter.h \
+    src/models/battleship_game.h \
+    src/main_window.h
 
 FORMS += \
         mainwindow.ui
@@ -63,5 +63,4 @@ RESOURCES += \
     images.qrc
 
 DISTFILES += \
-    ../build-BattleshipGame-Desktop_Qt_5_12_2_MinGW_32_bit-Debug/debug/BattleshipGame.exe \
-    ../build-BattleshipGame-Desktop_Qt_5_12_2_MinGW_32_bit-Debug/settings.txt
+    other/settings.txt
