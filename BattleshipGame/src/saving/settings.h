@@ -26,11 +26,11 @@ public:
         MAX_DECKS_NUMBER;
 
     void setShipsMap(const map<int, int>&);
-    map<int, int> getShipsMap();
+    map<int, int> getShipsMap() const;
     void setTimeLimited(bool);
-    bool isTimeLimited();
+    bool isTimeLimited() const;
     void setStepDuration(int);
-    int getStepDuration();
+    int getStepDuration() const;
     static Settings& getInstance();
     Settings& operator=(Settings&) = delete;
     Settings& operator=(Settings&&) = delete;

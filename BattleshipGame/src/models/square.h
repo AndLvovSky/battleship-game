@@ -5,12 +5,9 @@ namespace battleshipGame {
 
 class Square {
 
-    private:
-
     int x, y;
 
-    public:
-
+public:
     enum State {
         NOT_ATTACKED,
         ATTACKED,
@@ -20,12 +17,12 @@ class Square {
     Square();
     Square(int, int);
     static Square makeSquare(int, int);
-    int getX();
+    int getX() const;
     void setX(int);
-    int getY();
+    int getY() const;
     void setY(int);
-    bool operator == (Square);
-    bool operator != (Square);
+    bool operator == (const Square&) const;
+    bool operator != (const Square&) const;
     Square& operator=(const Square&);
 };
 

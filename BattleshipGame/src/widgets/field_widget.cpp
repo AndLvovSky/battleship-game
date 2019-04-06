@@ -1,6 +1,5 @@
 #include "field_widget.h"
 #include "field_painter.h"
-#include "main_window.h"
 #include <QPainter>
 #include <QMouseEvent>
 #include <QStyleOption>

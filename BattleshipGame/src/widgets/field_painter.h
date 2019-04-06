@@ -3,8 +3,7 @@
 
 #include "field_widget.h"
 #include "widget_painter.h"
-#include "ship.h"
-#include "battleship_game.h"
+#include "../models/ship.h"
 
 using namespace std;
 

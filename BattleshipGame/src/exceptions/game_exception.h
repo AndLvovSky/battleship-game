@@ -8,7 +8,6 @@ using namespace std;
 namespace battleshipGame {
 
 class GameException : public runtime_error {
-
 public:
     GameException(const char* msg) :
         runtime_error(msg) {}

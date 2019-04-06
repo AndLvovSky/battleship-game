@@ -1,6 +1,5 @@
-#include "battleship_game.h"
+#include "../models/battleship_game.h"
 #include "field_painter.h"
-//#include <graphics.h>
 
 using namespace battleshipGame;
 

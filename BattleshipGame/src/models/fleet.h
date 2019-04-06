@@ -11,25 +11,22 @@ namespace battleshipGame {
 
 class Fleet {
 
-    private:
-
-    vector <Ship> ships;
+    vector<Ship> ships;
     Square::State squaresState[10][10];
 
-    bool checkPositionForSquare(Square);
+    bool checkPositionForSquare(const Square&) const;
 
-    public:
-
+public:
     Fleet();
-    bool checkPositionForShip(Ship);
+    bool checkPositionForShip(const Ship&) const;
     void addShip(Ship);
-    Shot fire(Square);
-    bool hasAttacked(Square);
-    int getHP();
-    bool isDestroyed();
-    Square::State getSquareState(int x, int y);
-    vector <Ship> getShips();
-    int findShipIndex(Square);
+    Shot fire(const Square&);
+    bool hasAttacked(const Square&) const;
+    int getHP() const;
+    bool isDestroyed() const;
+    Square::State getSquareState(int x, int y) const;
+    vector<Ship> getShips() const;
+    int findShipIndex(const Square&) const;
 };
 
 }

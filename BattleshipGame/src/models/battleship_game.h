@@ -3,6 +3,7 @@
 
 #include "fleet.h"
 #include <map>
+#include <memory>
 
 using namespace std;
 
@@ -10,11 +11,11 @@ namespace battleshipGame {
 
 class BattleshipGame {
 
-    Fleet* yourFleet;
-    Fleet* opponentFleet;
+    shared_ptr<Fleet> yourFleet;
+    shared_ptr<Fleet> opponentFleet;
 
-    void randomPlacement(Fleet&);
-    bool isSquareGood(Square);
+    void randomPlacement(Fleet&) const;
+    bool isSquareGood(const Square&) const;
 
 public:
     enum class Mode {
@@ -30,14 +31,14 @@ public:
     bool shipHorizontal;
     bool stepYours;
     bool youWon;
-    map <int, int> shipsLast;
+    map<int, int> shipsMap;
+    map<int, int> shipsLast;
 
-    void start();
+    void start(const map<int, int>& shipsMap);
     void quit();
-    void battle();
-    static BattleshipGame& get();
     Fleet& getFleet(bool yours);
-    Square opponentStep();
+    Square opponentStep() const;
+    static BattleshipGame& get();
 
 };
 

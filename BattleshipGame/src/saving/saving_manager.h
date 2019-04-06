@@ -1,9 +1,9 @@
 #ifndef SAVING_MANAGER_H
 #define SAVING_MANAGER_H
 
+#include "settings.h"
 #include <QString>
 #include <QFile>
-#include "settings.h"
 
 namespace battleshipGame {
 

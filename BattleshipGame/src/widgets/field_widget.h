@@ -1,7 +1,7 @@
 #ifndef FIELD_WIDGET_H
 #define FIELD_WIDGET_H
 
-#include "battleship_game.h"
+#include "../models/battleship_game.h"
 #include "widget_painter.h"
 #include <QLabel>
 #include <memory>
@@ -29,7 +29,6 @@ public:
     void mousePressEvent(QMouseEvent*) override;
     void enterEvent(QEvent*) override;
     void leaveEvent(QEvent*) override;
-    //bool eventFilter(QObject*, QEvent*) override;
 
 signals:
     void shipsMapChanged();

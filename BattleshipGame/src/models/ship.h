@@ -10,21 +10,18 @@ namespace battleshipGame {
 
 class Ship {
 
-    private:
-
-    vector <Square> squares;
+    vector<Square> squares;
     int hP;
 
-    public:
-
+public:
     Ship(Square startSquare, int shipSize, bool horizontal);
-    Square getStartSquare();
-    int getSize();
-    bool isHorizontal();
-    int getHP();
+    Square getStartSquare() const;
+    int getSize() const;
+    bool isHorizontal() const;
+    int getHP() const;
     void setHP(int);
-    bool isSunk();
-    vector <Square> getSquares();
+    bool isSunk() const;
+    vector<Square> getSquares() const;
 };
 
 }

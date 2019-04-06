@@ -4,43 +4,42 @@
 using namespace std;
 using namespace battleshipGame;
 
-Square :: Square() {
-	x = y = 0;
-}
-	
-Square :: Square(int x, int y) {
-	this->x = x;
-	this->y = y;
+Square::Square() {
+    x = y = 0;
 }
 
-Square 
-Square :: makeSquare(int x, int y) {
-	Square square(x, y);
-	return square;
+Square::Square(int x, int y) {
+    this->x = x;
+    this->y = y;
 }
 
-int Square :: getX() {
-	return this->x;
+Square Square::makeSquare(int x, int y) {
+    Square square(x, y);
+    return square;
 }
 
-void Square :: setX(int x) {
-	this->x = x;
+int Square::getX() const {
+    return this->x;
 }
 
-int Square :: getY() {
-	return this->y;
+void Square::setX(int x) {
+    this->x = x;
 }
 
-void Square :: setY(int y) {
-	this->y = y;
+int Square::getY() const {
+    return this->y;
 }
 
-bool Square :: operator == (Square square) {
-	return this->x == square.getX() &&
-		   this->y == square.getY();
+void Square::setY(int y) {
+    this->y = y;
 }
 
-bool Square :: operator != (Square square) {
+bool Square::operator==(const Square& square) const {
+    return this->x == square.getX() &&
+           this->y == square.getY();
+}
+
+bool Square::operator!=(const Square& square) const {
     return !(*this == square);
 }
 

@@ -1,5 +1,5 @@
 #include "saving_manager.h"
-#include "game_exception.h"
+#include "../exceptions/game_exception.h"
 
 #include <QFile>
 #include <QDir>

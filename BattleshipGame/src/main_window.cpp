@@ -1,9 +1,8 @@
 #include "main_window.h"
 #include "ui_mainwindow.h"
-#include "saving_manager.h"
-#include "game_exception.h"
-#include "field_widget.h"
-
+#include "saving/saving_manager.h"
+#include "exceptions/game_exception.h"
+#include "widgets/field_widget.h"
 #include <QPainter>
 #include <QDir>
 #include <QTimer>
@@ -11,14 +10,11 @@
 using namespace battleshipGame;
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    //this->setFixedSize(600, 400);
 
     savingManager = make_unique<SavingManager>(
-        QDir::currentPath() + "/settings.txt");
+        "../BattleshipGame/other/settings.txt");
     try {
         savingManager->load(Settings::getInstance());
     } catch(GameException ex) {
@@ -45,9 +41,12 @@ MainWindow::MainWindow(QWidget *parent) :
                      this, SLOT(on_gotWinner(bool)));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
+    delete yourFW;
+    delete opponentFW;
+    delete yourTimer;
+    delete opponentTimer;
 }
 
 void MainWindow::resizeEvent(QResizeEvent *e) {
@@ -55,7 +54,7 @@ void MainWindow::resizeEvent(QResizeEvent *e) {
     int w = cw->width();
     int h = cw->height();
     QPixmap pixmap;
-    pixmap.load(":/images/main_background.jpg");
+    pixmap.load(":/res/images/main_background.jpg");
     pixmap = pixmap.scaled(w, h, Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, pixmap);
@@ -64,8 +63,7 @@ void MainWindow::resizeEvent(QResizeEvent *e) {
     QMainWindow::resizeEvent(e);
 }
 
-void MainWindow::on_settingsButton_clicked()
-{
+void MainWindow::on_settingsButton_clicked() {
     auto& settings = Settings::getInstance();
     auto shipsMap = settings.getShipsMap();
     ui->d1SpinBox->setValue(shipsMap[1]);
@@ -82,13 +80,11 @@ void MainWindow::on_settingsButton_clicked()
     stw->setCurrentIndex(2);
 }
 
-void MainWindow::on_limitCheckBox_stateChanged(int checked)
-{
+void MainWindow::on_limitCheckBox_stateChanged(int checked) {
     ui->durationSpinBox->setEnabled(checked);
 }
 
-void MainWindow::on_saveReturnButton_clicked()
-{
+void MainWindow::on_saveReturnButton_clicked() {
     try {
         auto& settings = Settings::getInstance();
         int n1 = ui->d1SpinBox->value();
@@ -117,26 +113,21 @@ void MainWindow::closeEvent(QCloseEvent* e) {
     QWidget::closeEvent(e);
 }
 
-void MainWindow::on_startGameButton_clicked()
-{
+void MainWindow::on_startGameButton_clicked() {
     auto& game = BattleshipGame::get();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(1);
     auto atw = ui->actionStackedWidget;
     atw->setCurrentIndex(0);
-    //this->setFixedSize(600, 500);
-    auto tLbl = ui->timerLabel;
-    tLbl->setText(QString(QChar(0x221E)));
-    game.start();
+    ui->timerLabel->setText(QString(QChar(0x221E)));
+    game.start(Settings::getInstance().getShipsMap());
     on_shipsMap_changed();
 }
 
-void MainWindow::on_finishGameButton_clicked()
-{
+void MainWindow::on_finishGameButton_clicked() {
     BattleshipGame::get().quit();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(0);
-    //this->setFixedSize(600, 400);
     opponentTimer->stop();
     yourTimer->stop();
 }
@@ -186,23 +177,19 @@ void MainWindow::on_shipsMap_changed() {
     }
 }
 
-void MainWindow::on_d1RadioButton_clicked()
-{
+void MainWindow::on_d1RadioButton_clicked() {
     BattleshipGame::get().shipSize = 1;
 }
 
-void MainWindow::on_d2RadioButton_clicked()
-{
+void MainWindow::on_d2RadioButton_clicked() {
     BattleshipGame::get().shipSize = 2;
 }
 
-void MainWindow::on_d3RadioButton_clicked()
-{
+void MainWindow::on_d3RadioButton_clicked() {
     BattleshipGame::get().shipSize = 3;
 }
 
-void MainWindow::on_d4RadioButton_clicked()
-{
+void MainWindow::on_d4RadioButton_clicked() {
     BattleshipGame::get().shipSize = 4;
 }
 
@@ -279,8 +266,7 @@ void MainWindow::on_gotWinner(bool youWon) {
     }
 }
 
-void MainWindow::on_restartButton_clicked()
-{
+void MainWindow::on_restartButton_clicked() {
     on_finishGameButton_clicked();
     on_startGameButton_clicked();
 }

@@ -1,5 +1,5 @@
 #include "settings.h"
-#include "game_exception.h"
+#include "../exceptions/game_exception.h"
 
 using namespace battleshipGame;
 
@@ -30,7 +30,7 @@ void Settings::setShipsMap(const map<int, int>& decksToNumber) {
     this->decksToNumber = decksToNumber;
 }
 
-map<int, int> Settings::getShipsMap() {
+map<int, int> Settings::getShipsMap() const {
     return this->decksToNumber;
 }
 
@@ -38,7 +38,7 @@ void Settings::setTimeLimited(bool timeLimited) {
     this->timeLimited = timeLimited;
 }
 
-bool Settings::isTimeLimited() {
+bool Settings::isTimeLimited() const {
     return this->timeLimited;
 }
 
@@ -50,6 +50,6 @@ void Settings::setStepDuration(int stepDuration) {
     this->stepDuration = stepDuration;
 }
 
-int Settings::getStepDuration() {
+int Settings::getStepDuration() const {
     return this->stepDuration;
 }
