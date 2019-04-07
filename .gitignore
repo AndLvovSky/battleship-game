@@ -1,1 +1,2 @@
-BattleshipGame.pro.user
+test/test_build_debug/*
+*.user
