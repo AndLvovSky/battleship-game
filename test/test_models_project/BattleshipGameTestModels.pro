@@ -8,7 +8,7 @@ INCLUDEPATH += $$PWD/../../src/models
 
 DEPENDPATH += $$PWD/../../src/models
 
-SOURCES += ../test_models.cpp\
+SOURCES += ../*.cpp\
            ../../src/models/*.cpp
 
-HEADERS += ../test_models.h
+HEADERS += ../*.h

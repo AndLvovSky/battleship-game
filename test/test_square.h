@@ -1,10 +1,10 @@
 #include <QtTest/QtTest>
 
-class TestModels: public QObject {
+class TestSquare: public QObject {
 
     Q_OBJECT
 
 private slots:
 
-    void testSquare();
+    void testGetters();
 };

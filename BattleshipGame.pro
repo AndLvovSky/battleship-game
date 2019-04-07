@@ -35,7 +35,7 @@ SOURCES += \
     src/widgets/widget_painter.cpp \
     src/widgets/field_painter.cpp \
     src/models/battleship_game.cpp \
-    src/main_window.cpp
+    src/main_window.cpp \
 
 HEADERS += \
     src/saving/settings.h \
@@ -49,7 +49,7 @@ HEADERS += \
     src/widgets/widget_painter.h \
     src/widgets/field_painter.h \
     src/models/battleship_game.h \
-    src/main_window.h
+    src/main_window.h \
 
 FORMS += \
         mainwindow.ui
