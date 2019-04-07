@@ -6,5 +6,6 @@ class TestShip: public QObject {
 
 private slots:
 
-    void testGetters();
+    void testConstructor();
+    void testGettersAndSetters();
 };
