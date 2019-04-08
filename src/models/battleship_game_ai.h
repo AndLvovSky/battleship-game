@@ -4,8 +4,9 @@
 #include "fleet.h"
 #include <map>
 
-using namespace battleshipGame;
 using namespace std;
+
+namespace battleshipGame {
 
 class BattleshipGameAI {
 
@@ -15,5 +16,7 @@ public:
     static void placeShips(Fleet&, const map<int, int>&);
     static Square findBestSquare(const Fleet&);
 };
+
+}
 
 #endif // BATTLESHIP_GAME_AI_H
