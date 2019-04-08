@@ -14,9 +14,6 @@ class BattleshipGame {
     shared_ptr<Fleet> yourFleet;
     shared_ptr<Fleet> opponentFleet;
 
-    void randomPlacement(Fleet&) const;
-    bool isSquareGood(const Square&) const;
-
 public:
     enum class Mode {
         PLACING,
@@ -31,13 +28,11 @@ public:
     bool shipHorizontal;
     bool stepYours;
     bool youWon;
-    map<int, int> shipsMap;
     map<int, int> shipsLast;
 
     void start(const map<int, int>& shipsMap);
     void quit();
     Fleet& getFleet(bool yours);
-    Square opponentStep() const;
     static BattleshipGame& get();
 
 };

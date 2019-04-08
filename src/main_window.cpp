@@ -1,5 +1,7 @@
 #include "main_window.h"
 #include "ui_mainwindow.h"
+#include "models/battleship_game.h"
+#include "models/battleship_game_ai.h"
 #include "saving/saving_manager.h"
 #include "exceptions/game_exception.h"
 #include "widgets/field_widget.h"
@@ -228,7 +230,7 @@ void MainWindow::on_fired(Shot shot) {
 
 void MainWindow::on_opponentStep() {
     auto& game = BattleshipGame::get();
-    Square square = game.opponentStep();
+    Square square = BattleshipGameAI::findBestSquare(game.getFleet(false));
     Shot result = game.getFleet(true).fire(square);
     QMessageLogger().debug("opponent fired");
     yourFW->update();

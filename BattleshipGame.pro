@@ -36,6 +36,7 @@ SOURCES += \
     src/widgets/field_painter.cpp \
     src/models/battleship_game.cpp \
     src/main_window.cpp \
+    src/models/battleship_game_ai.cpp
 
 HEADERS += \
     src/saving/settings.h \
@@ -50,6 +51,7 @@ HEADERS += \
     src/widgets/field_painter.h \
     src/models/battleship_game.h \
     src/main_window.h \
+    src/models/battleship_game_ai.h
 
 FORMS += \
         mainwindow.ui
