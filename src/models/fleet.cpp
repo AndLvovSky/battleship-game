@@ -1,6 +1,6 @@
 #include <iostream>
 #include "fleet.h"
-#include "shot.h"
+#include "fire_result.h"
 
 using namespace std;
 using namespace battleshipGame;
@@ -74,12 +74,12 @@ void Fleet::addShip(Ship ship) {
     ships.push_back(ship);
 }
 
-Shot Fleet::fire(const Square& square) {
+FireResult Fleet::fire(const Square& square) {
     int attackedShip = findShipIndex(square);
 
     if (attackedShip == -1) {
         squaresState[square.getX()][square.getY()] = Square::ATTACKED;
-        return Shot::BESIDE;
+        return FireResult::BESIDE;
     }
 
     squaresState[square.getX()][square.getY()] = Square::ATTACKED_WITH_SUCCESS;
@@ -109,7 +109,7 @@ Shot Fleet::fire(const Square& square) {
                 }
             }
         }
-        return Shot::SINK;
+        return FireResult::SUNK;
     }
     if (ships[attackedShip].getSquares().size() -
                ships[attackedShip].getHP() >= 2) {
@@ -148,7 +148,7 @@ Shot Fleet::fire(const Square& square) {
             }
         }
     }
-    return Shot::INJURE;
+    return FireResult::INJURED;
 }
 
 bool Fleet::hasAttacked(const Square& square) const {

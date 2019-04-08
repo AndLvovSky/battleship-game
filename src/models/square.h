@@ -4,7 +4,7 @@
 namespace battleshipGame {
 
 /**
- * @brief The Square class represents a board field.
+ * @brief The Square class represents a board cell.
  *
  * Square has two coordinates x and y in range from 0 to 9 inclusively.
  * Square can be in 3 different states.

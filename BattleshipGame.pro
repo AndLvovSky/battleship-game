@@ -46,12 +46,12 @@ HEADERS += \
     src/models/square.h \
     src/models/ship.h \
     src/models/fleet.h \
-    src/models/shot.h \
     src/widgets/widget_painter.h \
     src/widgets/field_painter.h \
     src/models/battleship_game.h \
     src/main_window.h \
-    src/models/battleship_game_ai.h
+    src/models/battleship_game_ai.h \
+    src/models/fire_result.h
 
 FORMS += \
         mainwindow.ui
