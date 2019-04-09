@@ -66,7 +66,7 @@ class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
      * Draws small point symbol for ATTACKED squares.
      * @param square - square in which to draw small point symbol.
      */
-    void drawSmallPoint(Square);
+    void drawSmallPoint(Square square);
 
     /**
      * @return Coordinates of left-top point of

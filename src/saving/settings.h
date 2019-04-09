@@ -17,7 +17,7 @@ namespace battleshipGame {
  */
 class Settings {
 
-    map<int, int> decksToNumber; /**< decks to ships map */
+    map<int, int> shipsMap; /**< decks to ships map */
     bool timeLimited; /**< is step time limited */
     int stepDuration; /**< duration of a human step */
 

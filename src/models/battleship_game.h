@@ -40,7 +40,7 @@ public:
     int shipSize;/**< Selected ship's size in PLACING mode. */
     bool shipHorizontal; /**< Is selected ship's orienatation horizontal. */
     bool stepYours; /**< Is step yours in BATTLE mode. */
-    bool youWon; /**<  you the winner, informative only in RESUME mode. */
+    bool youWon; /**<  Is you the winner, informative only in RESUME mode. */
     map<int, int> shipsLeft; ///< Map of left to place ships
                              ///< in PLACING mode.
 

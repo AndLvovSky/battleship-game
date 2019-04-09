@@ -22,15 +22,15 @@ class BattleshipGameAI {
      * @return True if  specified square better to fire than
      * other possible squares to fire in the fleet, false otherwise.
      */
-    static bool isSquareGood(const Fleet&, const Square&);
+    static bool isSquareGood(const Fleet& fleet, const Square& square);
 
 public:
     /**
      * Places ships in specified fleet without collisions.
      * @param fleet - fleet to build.
-     * @param shipMap - decks to ships map.
+     * @param shipsMap - decks to ships map.
      */
-    static void placeShips(Fleet& fleet, const map<int, int>& shipMap);
+    static void placeShips(Fleet& fleet, const map<int, int>& shipsMap);
 
     /**
      * @param fleet - fleet to analyse.

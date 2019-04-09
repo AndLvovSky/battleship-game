@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow {
 
 public:
     /**
-     * Explicit overrided contrcutor from QMainWindow.
+     * Explicit constructor from QMainWindow.
      */
     explicit MainWindow(QWidget* parent = nullptr);
 
@@ -139,7 +139,7 @@ private:
     unique_ptr<SavingManager> savingManager; /**< saving manager */
     QTimer* yourTimer; /** human timer */
     QTimer* opponentTimer; /** machine timer */
-    int timeLeft; /** human's time left is seconds */
+    int timeLeft; /** human's time left in seconds */
 };
 
 #endif // MAINWINDOW_H

@@ -18,8 +18,8 @@ Settings& Settings::getInstance() {
     return settings;
 }
 
-void Settings::setShipsMap(const map<int, int>& decksToNumber) {
-    for (auto [decks, number]: decksToNumber) {
+void Settings::setShipsMap(const map<int, int>& shipsMap) {
+    for (auto [decks, number]: shipsMap) {
         if (decks < MIN_DECKS ||
             decks > MAX_DECKS ||
             number < MIN_DECKS_NUMBER.at(decks) ||
@@ -27,11 +27,11 @@ void Settings::setShipsMap(const map<int, int>& decksToNumber) {
             throw GameException("invalid ships map");
         }
     }
-    this->decksToNumber = decksToNumber;
+    this->shipsMap = shipsMap;
 }
 
 map<int, int> Settings::getShipsMap() const {
-    return this->decksToNumber;
+    return this->shipsMap;
 }
 
 void Settings::setTimeLimited(bool timeLimited) {

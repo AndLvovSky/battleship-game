@@ -97,7 +97,7 @@ public:
     /**
      * @return Index of the ship, which part placed in the specified square.
      */
-    int findShipIndex(const Square&) const;
+    int findShipIndex(const Square& square) const;
 };
 
 }

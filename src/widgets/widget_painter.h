@@ -18,7 +18,7 @@ public:
      * Constructor that initializes QPainter from specified
      * QWidget, dynamically casted to QWidgetType.
      */
-    WidgetPainter(QWidget*);
+    WidgetPainter(QWidget* widget);
 
     /**
      * Destructor that deletes QPainter.

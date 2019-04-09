@@ -81,7 +81,7 @@ signals:
     /**
      * Signal that emits when player fired a valid square.
      */
-    void fired(FireResult);
+    void fired(FireResult fireResult);
 };
 
 }
