@@ -22,7 +22,7 @@ public:
     void resizeEvent(QResizeEvent*) override;
 
 signals:
-    void fired(Shot);
+    void fired(FireResult);
     void gotWinner(bool youWon);
 
 private slots:
@@ -40,7 +40,7 @@ private slots:
     void on_yourTimeLeft();
     void on_restartButton_clicked();
     void on_shipsMap_changed();
-    void on_fired(Shot);
+    void on_fired(FireResult);
     void on_gotWinner(bool youWon);
 
 private:

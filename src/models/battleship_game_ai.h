@@ -8,13 +8,35 @@ using namespace std;
 
 namespace battleshipGame {
 
+/**
+ * @brief The BattleshipGameAI class represents this game's
+ * artificial inteligence.
+ *
+ * It contains methods for random placing of ships in the fleet and
+ * for making the best machine step according to current
+ * human fleet's state.
+ */
 class BattleshipGameAI {
 
+    /**
+     * @return True if  specified square better to fire than
+     * other possible squares to fire in the fleet, false otherwise.
+     */
     static bool isSquareGood(const Fleet&, const Square&);
 
 public:
-    static void placeShips(Fleet&, const map<int, int>&);
-    static Square findBestSquare(const Fleet&);
+    /**
+     * Places ships in specified fleet without collisions.
+     * @param fleet - fleet to build.
+     * @param shipMap - decks to ships map.
+     */
+    static void placeShips(Fleet& fleet, const map<int, int>& shipMap);
+
+    /**
+     * @param fleet - fleet to analyse.
+     * @return Best square to fire according to the fleet's state.
+     */
+    static Square findBestSquare(const Fleet& fleet);
 };
 
 }

@@ -28,7 +28,7 @@ void FieldWidget::FieldPainter::drawPlacing() {
     }
     auto& yourFleet = game.getFleet(true);
     Ship ship(game.square, game.shipSize, game.shipHorizontal);
-    if (game.shipsLast[game.shipSize] &&
+    if (game.shipsLeft[game.shipSize] &&
         yourFleet.checkPositionForShip(ship)) {
         drawShip(ship, CORRECT_COLOR);
     } else {

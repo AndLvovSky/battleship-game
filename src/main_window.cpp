@@ -32,13 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
                      this, SLOT(on_yourTimeLeft()));
     opponentFW = new FieldWidget(false);
     ui->opponentFleetLayout->addWidget(opponentFW);
-    QObject::connect(opponentFW, SIGNAL(fired(Shot)),
-                     this, SLOT(on_fired(Shot)));
+    QObject::connect(opponentFW, SIGNAL(fired(FireResult)),
+                     this, SLOT(on_fired(FireResult)));
     opponentTimer = new QTimer();
     QObject::connect(opponentTimer, SIGNAL(timeout()),
                      this, SLOT(on_opponentStep()));
-    QObject::connect(this, SIGNAL(fired(Shot)),
-                     this, SLOT(on_fired(Shot)));
+    QObject::connect(this, SIGNAL(fired(FireResult)),
+                     this, SLOT(on_fired(FireResult)));
     QObject::connect(this, SIGNAL(gotWinner(bool)),
                      this, SLOT(on_gotWinner(bool)));
 }
@@ -127,7 +127,7 @@ void MainWindow::on_startGameButton_clicked() {
 }
 
 void MainWindow::on_finishGameButton_clicked() {
-    BattleshipGame::get().quit();
+    BattleshipGame::get().finish();
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(0);
     opponentTimer->stop();
@@ -142,22 +142,22 @@ void MainWindow::on_shipsMap_changed() {
     auto d4 = ui->d4RadioButton;
     auto& game = BattleshipGame::get();
     d1->setText(QString("single (") +
-        QString::fromStdString(to_string(game.shipsLast[1])) + ")");
+        QString::fromStdString(to_string(game.shipsLeft[1])) + ")");
     d2->setText(QString("two (") +
-        QString::fromStdString(to_string(game.shipsLast[2])) + ")");
+        QString::fromStdString(to_string(game.shipsLeft[2])) + ")");
     d3->setText(QString("three (") +
-        QString::fromStdString(to_string(game.shipsLast[3])) + ")");
+        QString::fromStdString(to_string(game.shipsLeft[3])) + ")");
     d4->setText(QString("four (") +
-        QString::fromStdString(to_string(game.shipsLast[4])) + ")");
-    if (game.shipsLast[1] == 0) d1->setEnabled(false);
+        QString::fromStdString(to_string(game.shipsLeft[4])) + ")");
+    if (game.shipsLeft[1] == 0) d1->setEnabled(false);
     else d1->setEnabled(true);
-    if (game.shipsLast[2] == 0) d2->setEnabled(false);
+    if (game.shipsLeft[2] == 0) d2->setEnabled(false);
     else d2->setEnabled(true);
-    if (game.shipsLast[3] == 0) d3->setEnabled(false);
+    if (game.shipsLeft[3] == 0) d3->setEnabled(false);
     else d3->setEnabled(true);
-    if (game.shipsLast[4] == 0) d4->setEnabled(false);
+    if (game.shipsLeft[4] == 0) d4->setEnabled(false);
     else d4->setEnabled(true);
-    if (game.shipsLast[game.shipSize]) {
+    if (game.shipsLeft[game.shipSize]) {
         switch (game.shipSize) {
             case 1: d1->setChecked(true); break;
             case 2: d2->setChecked(true); break;
@@ -165,10 +165,10 @@ void MainWindow::on_shipsMap_changed() {
             case 4: d4->setChecked(true); break;
         }
     } else {
-        if (game.shipsLast[1] != 0) { d1->click(); yourFW->update(); }
-        else if (game.shipsLast[2] != 0) { d2->click(); yourFW->update(); }
-        else if (game.shipsLast[3] != 0) { d3->click(); yourFW->update(); }
-        else if (game.shipsLast[4] != 0) { d4->click(); yourFW->update(); }
+        if (game.shipsLeft[1] != 0) { d1->click(); yourFW->update(); }
+        else if (game.shipsLeft[2] != 0) { d2->click(); yourFW->update(); }
+        else if (game.shipsLeft[3] != 0) { d3->click(); yourFW->update(); }
+        else if (game.shipsLeft[4] != 0) { d4->click(); yourFW->update(); }
     }
     if (!(d1->isEnabled() || d2->isEnabled() || d3->isEnabled() || d4->isEnabled())) {
         game.mode = BattleshipGame::Mode::BATTLE;
@@ -195,7 +195,7 @@ void MainWindow::on_d4RadioButton_clicked() {
     BattleshipGame::get().shipSize = 4;
 }
 
-void MainWindow::on_fired(Shot shot) {
+void MainWindow::on_fired(FireResult FireResult) {
     auto& game = BattleshipGame::get();
     bool youWon = game.getFleet(false).isDestroyed();
     bool opponentWon = game.getFleet(true).isDestroyed();
@@ -204,7 +204,7 @@ void MainWindow::on_fired(Shot shot) {
         return;
     }
     auto tLbl = ui->timerLabel;
-    if (shot == Shot::BESIDE) {
+    if (FireResult == FireResult::BESIDE) {
         if (!game.stepYours) {
             opponentTimer->stop();
         } else {
@@ -231,7 +231,7 @@ void MainWindow::on_fired(Shot shot) {
 void MainWindow::on_opponentStep() {
     auto& game = BattleshipGame::get();
     Square square = BattleshipGameAI::findBestSquare(game.getFleet(false));
-    Shot result = game.getFleet(true).fire(square);
+    FireResult result = game.getFleet(true).fire(square);
     QMessageLogger().debug("opponent fired");
     yourFW->update();
     emit fired(result);

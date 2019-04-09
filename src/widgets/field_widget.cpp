@@ -62,16 +62,16 @@ void FieldWidget::mousePressEvent(QMouseEvent *ev) {
         if (game.mode == BattleshipGame::Mode::PLACING) {
             auto& yourFleet = game.getFleet(true);
             Ship ship(game.square, game.shipSize, game.shipHorizontal);
-            if (game.shipsLast[game.shipSize] &&
+            if (game.shipsLeft[game.shipSize] &&
                 yourFleet.checkPositionForShip(ship)) {
                 yourFleet.addShip(ship);
-                game.shipsLast[game.shipSize]--;
+                game.shipsLeft[game.shipSize]--;
                 emit shipsMapChanged();
             }
         } else if (game.mode == BattleshipGame::Mode::BATTLE && game.stepYours) {
             auto& opponentFleet = game.getFleet(false);
             if (!opponentFleet.hasAttacked(game.square)) {
-                Shot result = opponentFleet.fire(game.square);
+                FireResult result = opponentFleet.fire(game.square);
                 QMessageLogger().debug("you fired");
                 update();
                 emit fired(result);

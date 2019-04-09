@@ -11,7 +11,7 @@ void BattleshipGame::start(const map<int, int>& shipsMap) {
     shipSize = 1;
     shipHorizontal = true;
     mode = Mode::PLACING;
-    shipsLast = shipsMap;
+    shipsLeft = shipsMap;
     stepYours = true;
     BattleshipGameAI::placeShips(*opponentFleet, shipsMap);
     /* for battle mode debug */
@@ -24,7 +24,7 @@ BattleshipGame& BattleshipGame::get() {
     return game;
 }
 
-void BattleshipGame::quit() {
+void BattleshipGame::finish() {
     yourFleet.reset();
     opponentFleet.reset();
 }
