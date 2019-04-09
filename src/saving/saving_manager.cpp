@@ -10,7 +10,8 @@ using namespace battleshipGame;
 SavingManager::SavingManager(const QString& fileName) :
     sfile(QFile(fileName)) {}
 
-void SavingManager::load(Settings& settings) {
+void SavingManager::load() {
+    Settings& settings = Settings::getInstance();
     if (!sfile.exists()) {
         throw GameException("file not exists");
     }
@@ -31,7 +32,8 @@ void SavingManager::load(Settings& settings) {
     sfile.close();
 }
 
-void SavingManager::save(Settings& settings) {
+void SavingManager::save() {
+    Settings& settings = Settings::getInstance();
     if (!sfile.open(QFile::WriteOnly)) {
         throw GameException("can not open to write");
     }

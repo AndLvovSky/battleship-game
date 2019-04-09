@@ -4,15 +4,30 @@
 #include <QWidget>
 #include <QPainter>
 
+/**
+ *  @brief The WidgetPainter class is an interface for painting QWidgets.
+ */
 template <typename QWidgetType>
 class WidgetPainter {
 
 protected:
-    QPainter* painter;
+    QPainter* painter; /**< painter using for painting widget */
 
 public:
+    /**
+     * Constructor that initializes QPainter from specified
+     * QWidget, dynamically casted to QWidgetType.
+     */
     WidgetPainter(QWidget*);
+
+    /**
+     * Destructor that deletes QPainter.
+     */
     virtual ~WidgetPainter();
+
+    /**
+     * Paints widget using initialized QPainter.
+     */
     virtual void paint() = 0;
 };
 

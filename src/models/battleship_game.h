@@ -19,6 +19,11 @@ class BattleshipGame {
     shared_ptr<Fleet> yourFleet; /**< human player's fleet */
     shared_ptr<Fleet> opponentFleet; /**< machine player's fleet */
 
+    /**
+      * Default constructor is private.
+      */
+    BattleshipGame() = default;
+
 public:
     /**
      * @brief The Mode enum defines valid modes of the game.
@@ -35,7 +40,7 @@ public:
     int shipSize;/**< Selected ship's size in PLACING mode. */
     bool shipHorizontal; /**< Is selected ship's orienatation horizontal. */
     bool stepYours; /**< Is step yours in BATTLE mode. */
-    bool youWon; /**< Are you the winner, informative only in RESUME mode. */
+    bool youWon; /**<  you the winner, informative only in RESUME mode. */
     map<int, int> shipsLeft; ///< Map of left to place ships
                              ///< in PLACING mode.
 
@@ -61,6 +66,15 @@ public:
      */
     static BattleshipGame& get();
 
+    /**
+     * Deleted copy constructor.
+     */
+    BattleshipGame& operator=(BattleshipGame&) = delete;
+
+    /**
+     * Deleted copy constructor.
+     */
+    BattleshipGame& operator=(BattleshipGame&&) = delete;
 };
 
 }

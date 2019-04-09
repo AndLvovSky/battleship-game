@@ -9,7 +9,7 @@ FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw) :
 void FieldWidget::FieldPainter::paint() {
     if (yours) QMessageLogger().debug("your fleet updated");
     drawField();
-    auto game = BattleshipGame::get();
+    auto& game = BattleshipGame::get();
     if (game.mode == BattleshipGame::Mode::PLACING) {
         drawPlacing();
     } else {

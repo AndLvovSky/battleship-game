@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     savingManager = make_unique<SavingManager>(
         "../BattleshipGame/other/settings.txt");
     try {
-        savingManager->load(Settings::getInstance());
+        savingManager->load();
     } catch(GameException ex) {
         QMessageLogger().debug(ex.what());
     }
@@ -108,7 +108,7 @@ void MainWindow::on_saveReturnButton_clicked() {
 
 void MainWindow::closeEvent(QCloseEvent* e) {
     try {
-        savingManager->save(Settings::getInstance());
+        savingManager->save();
     } catch(GameException ex) {
          QMessageLogger().debug(ex.what());
     }
