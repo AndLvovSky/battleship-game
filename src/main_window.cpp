@@ -232,7 +232,7 @@ void MainWindow::on_fired(FireResult FireResult) {
 
 void MainWindow::on_opponentStep() {
     auto& game = BattleshipGame::get();
-    Square square = BattleshipGameAI::findBestSquare(game.getFleet(false));
+    Square square = BattleshipGameAI::findBestSquare(game.getFleet(true));
     FireResult result = game.getFleet(true).fire(square);
     QMessageLogger().debug("opponent fired");
     yourFW->update();
