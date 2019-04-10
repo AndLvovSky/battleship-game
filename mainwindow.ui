@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>648</width>
     <height>500</height>
    </rect>
   </property>
@@ -56,7 +56,7 @@
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background: rgb(49, 112, 134); border: 2px solid lightblue; color: white; </string>
+           <string notr="true">background: rgb(49, 112, 134); border: 2px solid lightblue; color: white; padding: 10px</string>
           </property>
           <property name="text">
            <string>Battleship Game</string>
@@ -108,6 +108,9 @@
             <property name="cursor">
              <cursorShape>OpenHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 10px</string>
+            </property>
             <property name="text">
              <string>Start Game</string>
             </property>
@@ -153,6 +156,9 @@
             </property>
             <property name="cursor">
              <cursorShape>OpenHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 10px</string>
             </property>
             <property name="text">
              <string>Settings</string>
@@ -205,7 +211,7 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">border: 1px solid lightblue; background-color: blue; color: white</string>
+               <string notr="true">border: 1px solid lightblue; background-color: blue; color: white; padding: 5px</string>
               </property>
               <property name="text">
                <string>Your Fleet</string>
@@ -247,6 +253,18 @@
             </item>
             <item>
              <widget class="QLabel" name="timerLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
@@ -256,10 +274,13 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background: white; border: 1px solid black</string>
+               <string notr="true">background: white; border: 1px solid black; padding: 10px</string>
               </property>
               <property name="text">
                <string>∞</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -303,7 +324,7 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">border: 1px solid lightblue; background-color: blue; color: white</string>
+               <string notr="true">border: 1px solid lightblue; background-color: blue; color: white; padding: 5px</string>
               </property>
               <property name="text">
                <string>Opponent Fleet</string>
@@ -328,6 +349,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
                <widget class="QLabel" name="label_9">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
                   <family>Arial</family>
@@ -337,7 +364,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">color: red; background-color: rgba(255, 255, 0, 100); border: 1px solid black; padding: 5px;</string>
+                 <string notr="true">color: red; background-color: rgba(255, 255, 0,  150); border: 1px solid black; padding: 10px;</string>
                 </property>
                 <property name="text">
                  <string>Choose a ship and place it. To change orientation press Space.</string>
@@ -361,6 +388,18 @@
             </item>
             <item>
              <widget class="QGroupBox" name="groupBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>450</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
@@ -371,7 +410,7 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 255, 255); color: gray;</string>
+               <string notr="true">background-color: rgb(220, 255, 255); color: gray; padding-top: 10px;</string>
               </property>
               <property name="title">
                <string>Decks (last)</string>
@@ -574,6 +613,9 @@
               <pointsize>10</pointsize>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 10px</string>
+            </property>
             <property name="text">
              <string>Restart</string>
             </property>
@@ -606,6 +648,9 @@
             <property name="cursor">
              <cursorShape>OpenHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">padding: 10px</string>
+            </property>
             <property name="text">
              <string>Finish Game</string>
             </property>
@@ -627,6 +672,9 @@
             <bold>true</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background: rgba(255, 255, 255, 150)</string>
+          </property>
           <property name="text">
            <string>Ships number:</string>
           </property>
@@ -638,20 +686,44 @@
            <number>50</number>
           </property>
           <property name="rightMargin">
-           <number>200</number>
+           <number>0</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1,0">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
             <item>
              <widget class="QLabel" name="label_2">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
                 <pointsize>10</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
               </property>
               <property name="text">
                <string>single-decked </string>
@@ -660,10 +732,19 @@
             </item>
             <item>
              <widget class="QSpinBox" name="d1SpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">padding: 10px</string>
               </property>
               <property name="minimum">
                <number>1</number>
@@ -676,20 +757,48 @@
               </property>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_12">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,1,0">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
             <item>
              <widget class="QLabel" name="label_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
                 <pointsize>10</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
               </property>
               <property name="text">
                <string>two-decked </string>
@@ -698,10 +807,19 @@
             </item>
             <item>
              <widget class="QSpinBox" name="d2SpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">padding: 10px</string>
               </property>
               <property name="minimum">
                <number>0</number>
@@ -714,20 +832,48 @@
               </property>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="3,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="3,1,0">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
             <item>
              <widget class="QLabel" name="label_4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
                 <pointsize>10</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
               </property>
               <property name="text">
                <string>three-decked </string>
@@ -736,10 +882,19 @@
             </item>
             <item>
              <widget class="QSpinBox" name="d3SpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">padding: 10px</string>
               </property>
               <property name="minimum">
                <number>0</number>
@@ -752,20 +907,48 @@
               </property>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="3,1">
+           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="3,1,0">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
             <item>
              <widget class="QLabel" name="label_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>125</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Arial</family>
                 <pointsize>10</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
               </property>
               <property name="text">
                <string>four-decked </string>
@@ -774,10 +957,19 @@
             </item>
             <item>
              <widget class="QSpinBox" name="d4SpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">padding: 10px</string>
               </property>
               <property name="maximum">
                <number>1</number>
@@ -786,6 +978,19 @@
                <number>1</number>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -808,57 +1013,104 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,2,1">
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
           <property name="rightMargin">
-           <number>300</number>
+           <number>0</number>
           </property>
           <item>
-           <widget class="QCheckBox" name="limitCheckBox">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string> Limit time</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <family>Arial</family>
-              <pointsize>10</pointsize>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Step duration (s):</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="durationSpinBox">
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
-            </property>
-            <property name="minimum">
-             <number>5</number>
-            </property>
-            <property name="maximum">
-             <number>30</number>
-            </property>
-            <property name="singleStep">
-             <number>5</number>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <item>
+             <widget class="QCheckBox" name="limitCheckBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>Arial</family>
+                <pointsize>11</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
+              </property>
+              <property name="text">
+               <string> Limit time</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>Arial</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background: rgba(255, 255, 255, 150); padding: 10px</string>
+              </property>
+              <property name="text">
+               <string>Step duration (s):</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="durationSpinBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">padding: 10px</string>
+              </property>
+              <property name="minimum">
+               <number>5</number>
+              </property>
+              <property name="maximum">
+               <number>30</number>
+              </property>
+              <property name="singleStep">
+               <number>5</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -919,7 +1171,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>648</width>
      <height>21</height>
     </rect>
    </property>

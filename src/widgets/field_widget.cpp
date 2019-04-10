@@ -11,6 +11,7 @@ const int FieldWidget::SIDE = 200;
 FieldWidget::FieldWidget(bool yours) : QWidget(), yours(yours) {
     setStyleSheet("border: 2px solid black; background-color: white");
     this->setMouseTracking(true);
+    this->setFixedSize(QSize(SIDE, SIDE));
 }
 
 FieldWidget::~FieldWidget() {}

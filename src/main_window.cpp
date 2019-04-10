@@ -57,7 +57,7 @@ void MainWindow::resizeEvent(QResizeEvent *e) {
     int h = cw->height();
     QPixmap pixmap;
     pixmap.load(":/res/images/main_background.jpg");
-    pixmap = pixmap.scaled(w, h, Qt::IgnoreAspectRatio);
+    pixmap = pixmap.scaled(w, h, Qt::KeepAspectRatioByExpanding);
     QPalette palette;
     palette.setBrush(QPalette::Background, pixmap);
     cw->setAutoFillBackground(true);
