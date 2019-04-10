@@ -41,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
                      this, SLOT(on_fired(FireResult)));
     QObject::connect(this, SIGNAL(gotWinner(bool)),
                      this, SLOT(on_gotWinner(bool)));
+
+    this->setFixedSize(QSize(650, 500));
 }
 
 MainWindow::~MainWindow() {
