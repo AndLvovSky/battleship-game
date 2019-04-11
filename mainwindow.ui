@@ -370,7 +370,7 @@
                  <string notr="true">color: red; background-color: rgba(255, 255, 0,  150); border: 1px solid black; padding: 10px;</string>
                 </property>
                 <property name="text">
-                 <string>Choose a ship and place it. To change orientation press Space.</string>
+                 <string>Choose a ship and place it. To change orientation click RMB.</string>
                 </property>
                </widget>
               </item>

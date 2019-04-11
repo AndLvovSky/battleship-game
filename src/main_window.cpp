@@ -119,6 +119,7 @@ void MainWindow::closeEvent(QCloseEvent* e) {
 
 void MainWindow::on_startGameButton_clicked() {
     auto& game = BattleshipGame::get();
+    ui->timerLabel->setVisible(Settings::getInstance().isTimeLimited());
     auto stw = ui->stackedWidget;
     stw->setCurrentIndex(1);
     auto atw = ui->actionStackedWidget;
