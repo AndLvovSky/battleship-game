@@ -19,6 +19,10 @@ class FieldWidget : public QWidget {
 
     const bool yours; /**< is fleet yours */
 
+    int side; /**< Size of the widget side. */
+
+    const QWidget& parent;
+
     /**
      * @param wx - horizontal coordinate.
      * @param wy - vertical coordinate.
@@ -27,25 +31,19 @@ class FieldWidget : public QWidget {
     Square getSquare(int wx, int wy);
 
 public:
-    static const int SIDE; /**< Size of the widget side. */
 
     /**
      * Constructor that creates yours field widget or
      * opponent field widget according to parameter yours.
      * @param yours - is fleet yours.
+     * @param parent - parent of the widget.
      */
-    FieldWidget(bool yours);
+    FieldWidget(bool yours, QWidget& parent);
 
     /**
      * Overrided destructor.
      */
     virtual ~FieldWidget() override;
-
-    /**
-     * Overrided method.
-     * @return Size of the widget.
-     */
-    QSize sizeHint() const override;
 
     /**
      * Overrided method for handling paint event.

@@ -3,8 +3,11 @@
 
 using namespace battleshipGame;
 
-FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw) :
-    WidgetPainter(fw), yours(fw->yours) {}
+FieldWidget::FieldPainter::FieldPainter(FieldWidget* fw, int side) :
+    WidgetPainter(fw), yours(fw->yours) {
+    this->side = side;
+    sq = side / 10;
+}
 
 void FieldWidget::FieldPainter::paint() {
     if (yours) QMessageLogger().debug("your fleet updated");
@@ -81,18 +84,17 @@ void FieldWidget::FieldPainter::drawShip(Ship ship, QColor color) {
     painter->setPen(QPen(color, THICK_STROKE));
     painter->setBrush(Qt::NoBrush);
     if (ship.isHorizontal()) {
-        painter->drawRect(stp.x(), stp.y(), SQ * ssize, SQ);
+        painter->drawRect(stp.x(), stp.y(), sq * ssize, sq);
     } else {
-        painter->drawRect(stp.x(), stp.y(), SQ, SQ * ssize);
+        painter->drawRect(stp.x(), stp.y(), sq, sq * ssize);
     }
 }
 
 void FieldWidget::FieldPainter::drawField() {
-    const auto SIDE = FieldWidget::SIDE;
     painter->setPen(FIELD_COLOR);
     for (int i = 1; i < 10; i++) {
-        painter->drawLine(SQ * i, 0, SQ * i, SIDE);
-        painter->drawLine(0, SQ * i, SIDE, SQ * i);
+        painter->drawLine(sq * i, 0, sq * i, side);
+        painter->drawLine(0, sq * i, side, sq * i);
     }
 }
 
@@ -100,23 +102,23 @@ void FieldWidget::FieldPainter::drawSquare(Square square, QColor color) {
     painter->setPen(QPen(color, THICK_STROKE));
     painter->setBrush(Qt::NoBrush);
     QPoint lt = point(square);
-    painter->drawRect(lt.x(), lt.y(), SQ, SQ);
+    painter->drawRect(lt.x(), lt.y(), sq, sq);
 }
 
 QPoint FieldWidget::FieldPainter::point(Square square) {
-    return QPoint(square.getX() * SQ, square.getY() * SQ);
+    return QPoint(square.getX() * sq, square.getY() * sq);
 }
 
 void FieldWidget::FieldPainter::drawCross(Square square) {
     auto p = point(square);
     painter->setPen(QPen(ATTACK_COLOR, THICK_STROKE));
-    painter->drawLine(p.x(), p.y(), p.x() + SQ, p.y() + SQ);
-    painter->drawLine(p.x(), p.y() + SQ, p.x() + SQ, p.y());
+    painter->drawLine(p.x(), p.y(), p.x() + sq, p.y() + sq);
+    painter->drawLine(p.x(), p.y() + sq, p.x() + sq, p.y());
 }
 
 void FieldWidget::FieldPainter::drawSmallPoint(Square square) {
     auto p = point(square);
     painter->setPen(ATTACK_COLOR);
     painter->setBrush(ATTACK_COLOR);
-    painter->drawEllipse(QPoint(p.x() + SQ / 2, p.y() + SQ / 2), 2, 2);
+    painter->drawEllipse(QPoint(p.x() + sq / 2, p.y() + sq / 2), 2, 2);
 }

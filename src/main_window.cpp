@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QDir>
 #include <QTimer>
+#include <QDebug>
 
 using namespace battleshipGame;
 
@@ -23,14 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
         QMessageLogger().debug(ex.what());
     }
 
-    yourFW = new FieldWidget(true);
+    yourFW = new FieldWidget(true, *this);
     ui->yourFleetLayout->addWidget(yourFW);
     QObject::connect(yourFW, SIGNAL(shipsMapChanged()),
                      this, SLOT(on_shipsMap_changed()));
     yourTimer = new QTimer();
     QObject::connect(yourTimer, SIGNAL(timeout()),
                      this, SLOT(on_yourTimeLeft()));
-    opponentFW = new FieldWidget(false);
+    opponentFW = new FieldWidget(false, *this);
     ui->opponentFleetLayout->addWidget(opponentFW);
     QObject::connect(opponentFW, SIGNAL(fired(FireResult)),
                      this, SLOT(on_fired(FireResult)));
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this, SIGNAL(gotWinner(bool)),
                      this, SLOT(on_gotWinner(bool)));
 
-    this->setFixedSize(QSize(650, 500));
+    //this->setFixedSize(QSize(650, 500));
 }
 
 MainWindow::~MainWindow() {

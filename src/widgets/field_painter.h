@@ -14,7 +14,6 @@ namespace battleshipGame {
  */
 class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
 
-    const int SQ = SIDE / 10; /**< size of square side. */
     const bool yours; /**< is fleet that drawing yours */
     const QColor FIELD_COLOR = QColor(80, 80, 80); /**< color of field grid */
     ///< color using for correct selected square
@@ -26,6 +25,9 @@ class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
     const QColor ATTACK_COLOR = QColor(255, 0, 0);
     const int NARROW_STROKE = 2; /**< width of narrow stroke */
     const int THICK_STROKE = 4; /**< width of thick stroke */
+
+    int side;
+    int sq;
 
     /**
      * Draws grid.
@@ -85,11 +87,13 @@ class FieldWidget::FieldPainter : public WidgetPainter<FieldWidget> {
     void drawBattle();
 
 public:
+
     /**
      * Constructor that calls base constructor.
      * @param fw - field widget to draw.
+     * @param side - side of specified widget.
      */
-    FieldPainter(FieldWidget* fw);
+    FieldPainter(FieldWidget* fw, int side);
 
     /**
      * Overrided method for painting field widget.

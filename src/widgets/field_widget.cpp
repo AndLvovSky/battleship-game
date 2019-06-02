@@ -6,19 +6,13 @@
 
 using namespace battleshipGame;
 
-const int FieldWidget::SIDE = 200;
-
-FieldWidget::FieldWidget(bool yours) : QWidget(), yours(yours) {
+FieldWidget::FieldWidget(bool yours, QWidget& parent) :
+    QWidget(), yours(yours), parent(parent) {
     setStyleSheet("border: 2px solid black; background-color: white");
     this->setMouseTracking(true);
-    this->setFixedSize(QSize(SIDE, SIDE));
 }
 
 FieldWidget::~FieldWidget() {}
-
-QSize FieldWidget::sizeHint() const {
-    return QSize(SIDE, SIDE);
-}
 
 void FieldWidget::paintEvent(QPaintEvent* ev) {
     //<required>
@@ -27,7 +21,10 @@ void FieldWidget::paintEvent(QPaintEvent* ev) {
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
     //</required>
-    FieldPainter(this).paint();
+    int h = parent.height();
+    side = h * 2 / 5 / 10 * 10;
+    this->setFixedSize(QSize(side, side));
+    FieldPainter(this, side).paint();
     QWidget::paintEvent(ev);
 }
 
@@ -95,5 +92,5 @@ void FieldWidget::leaveEvent(QEvent* ev) {
 }
 
 Square FieldWidget::getSquare(int wx, int wy) {
-    return {wx * 10 / SIDE , wy * 10 / SIDE};
+    return {wx * 10 / side, wy * 10 / side};
 }
